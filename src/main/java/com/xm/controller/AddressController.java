@@ -25,9 +25,6 @@ public class AddressController {
     public String getAllAddress(Map<String, Object> map){
         List<Address> address = addressService.getAllAddress();
         map.put("address", address);
-        for (Address a : address) {
-            System.out.println(address);
-        }
         return "list";
     }
 
