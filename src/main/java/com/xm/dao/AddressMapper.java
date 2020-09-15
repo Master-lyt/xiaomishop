@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface AddressMapper {
 
-    public List<Address> getAllAddress();
+    List<Address> getAllAddress();
 
 }
