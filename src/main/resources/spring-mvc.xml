@@ -12,7 +12,7 @@
 
     <!-- SpringMVC 只是控制网站跳转逻辑 -->
     <!-- 只扫描控制器 -->
-    <context:component-scan base-package="com.xm">
+    <context:component-scan base-package="com.xm.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -36,6 +36,6 @@
     <mvc:default-servlet-handler/>
 
     <!-- 设置默认访问的欢迎页面 get -->
-    <mvc:view-controller path="login"/>
+<!--    <mvc:view-controller path="/" view-name="redirect:/login" />-->
 
 </beans>

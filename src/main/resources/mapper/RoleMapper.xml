@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace配置为数据访问层的接口的 包名.接口名称  -->
+<mapper namespace="com.xm.dao.RoleMapper">
+    <!--查询，所以使用select标签  id的值为RoleMapper中方法的名称getRoleById
+        返回的类型为Role为实体类com.oracle.entity.Role
+        参数的类型为int, Role getRoleById(int id) ==> #{id}
+     -->
+    <!-- 通过id查询角色信息 -->
+    <select id="getRoleById" resultType="com.xm.entity.Role" parameterType="int">
+		SELECT * FROM role WHERE id = #{id}
+	</select>
+
+</mapper>

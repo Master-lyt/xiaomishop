@@ -53,6 +53,17 @@ public class Address {
         this.address = address;
     }
 
+    public Address() {
+    }
+
+    public Address(String addressId, String customerId, String cnee, Integer phone, String address) {
+        this.addressId = addressId;
+        this.customerId = customerId;
+        this.cnee = cnee;
+        this.phone = phone;
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Address{" +

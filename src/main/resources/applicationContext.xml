@@ -8,15 +8,17 @@
 	   http://www.springframework.org/schema/beans/spring-beans.xsd
 	   http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
 	   http://mybatis.org/schema/mybatis-spring
 	   http://mybatis.org/schema/mybatis-spring.xsd
 	   http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- Spring 希望管理所有的业务逻辑组件，等 -->
-    <context:component-scan base-package="com.xm">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <context:component-scan base-package="com.xm"/>
+
+    <import resource="classpath:spring-mvc.xml" />
 
     <!-- Spring 事务管理 -->
     <bean id="dataSourceTransactionManager"
@@ -88,6 +90,6 @@
         <property name="basePackage" value="com.xm.dao" />
     </bean>
 
-    <mybatis-spring:scan base-package="com.xm.dao"/>
+<!--    <mybatis-spring:scan base-package="com.xm.dao"/>-->
 
 </beans>

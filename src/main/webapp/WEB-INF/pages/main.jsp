@@ -41,7 +41,7 @@
 				<div id="ltop">
 					<div id="lts">
 						<img
-							src="${pageContext.request.contextPath}/resources/image_user/${user.uimage}" /><br />
+							src="${pageContext.request.contextPath}/resources/image_user/pooh.jpg" /><br/>
 						<p style="text-align: center;">${user.realname}</p>
 					</div>
 				</div>
