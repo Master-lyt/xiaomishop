@@ -9,7 +9,9 @@
 	   http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd
 	   http://mybatis.org/schema/mybatis-spring
-	   http://mybatis.org/schema/mybatis-spring.xsd">
+	   http://mybatis.org/schema/mybatis-spring.xsd
+	   http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- Spring 希望管理所有的业务逻辑组件，等 -->
     <context:component-scan base-package="com.xm">

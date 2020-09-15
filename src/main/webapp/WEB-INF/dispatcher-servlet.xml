@@ -36,6 +36,6 @@
     <mvc:default-servlet-handler/>
 
     <!-- 设置默认访问的欢迎页面 get -->
-    <mvc:view-controller path="/" view-name="login" />
+    <mvc:view-controller path="login"/>
 
 </beans>
