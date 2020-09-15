@@ -5,18 +5,24 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://mybatis.org/schema/mybatis-spring
-       http://mybatis.org/schema/mybatis-spring.xsd">
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://mybatis.org/schema/mybatis-spring
+	   http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- Spring 希望管理所有的业务逻辑组件，等 -->
     <context:component-scan base-package="com.xm">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <!-- Spring 事务管理 -->
+    <bean id="dataSourceTransactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 
     <!-- 引入数据库配置文件 -->
     <context:property-placeholder location="classpath:db.properties"/>
@@ -57,15 +63,6 @@
         <property name="filters" value="stat" />
     </bean>
 
-    <!-- Spring 事务管理 -->
-    <bean id="dataSourceTransactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <!-- 开启基于注解的事务 -->
-    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
-
     <!-- 创建出 SqlSessionFactory 对象 -->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 注入数据库连接池 -->
@@ -82,6 +79,11 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
         <constructor-arg name="executorType" value="BATCH"/>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下自动扫描将Mapper接口生成代理注入到Spring -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.xm.dao" />
     </bean>
 
     <mybatis-spring:scan base-package="com.xm.dao"/>

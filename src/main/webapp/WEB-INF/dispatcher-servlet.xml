@@ -16,14 +16,26 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:annotation-driven/>
+    <!-- 文件上传的处理类 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1024000" />
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
 
     <mvc:default-servlet-handler/>
+
+    <!-- 设置默认访问的欢迎页面 get -->
+    <mvc:view-controller path="/" view-name="login" />
 
 </beans>
