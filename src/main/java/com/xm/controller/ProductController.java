@@ -1,10 +1,12 @@
 package com.xm.controller;
 
 import com.xm.service.ProductService;
+import com.xm.untils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,12 +24,13 @@ public class ProductController {
     private ProductService productService;
 
     //获取所有的商品的信息
-    @GetMapping("/getproduct")
-    public String getAllProducts(Model model){
-        List<HashMap<String,Object>> products = productService.getProducts();
+    @GetMapping("/getprobypage")
+    public String showProduct(@RequestParam(name = "page", defaultValue = "1") int page, Model model){
+        int pagesize = 5;
+        PageBean<HashMap<String, Object>> products = productService.getAllProductByPage(page, pagesize);
         model.addAttribute("products", products);
-        //去页面productnopage.jsp
-        return "productnopage";//WEB-INF/jsp/productnopage.jsp
+        //去页面product.jsp
+        return "product";//WEB-INF/jsp/productnopage.jsp
     }
 
 }

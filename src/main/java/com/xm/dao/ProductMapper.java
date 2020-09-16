@@ -1,5 +1,6 @@
 package com.xm.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import java.util.List;
 public interface ProductMapper {
 
     //获取所有的商品信息
-    List<HashMap<String,Object>> getProducts();
+    List<HashMap<String,Object>> getALLProducts();
 
+    List<HashMap<String, Object>> getAllProductByPage(@Param("page") int page, @Param("pagesize") int pagesize);
+
+    int getRowcount();
 }

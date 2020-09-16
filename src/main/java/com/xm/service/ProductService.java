@@ -1,5 +1,7 @@
 package com.xm.service;
 
+import com.xm.untils.PageBean;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +13,8 @@ import java.util.List;
 public interface ProductService {
 
     //获取所有的商品信息
-    List<HashMap<String,Object>> getProducts();
+    List<HashMap<String,Object>> getALLProducts();
 
 
+    PageBean<HashMap<String, Object>> getAllProductByPage(int page, int pagesize);
 }
