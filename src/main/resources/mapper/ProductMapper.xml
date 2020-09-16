@@ -14,8 +14,9 @@
 		<bind name="offset" value="page*pagesize-pagesize"/>
 		SELECT
 		p.*,pt.name AS typename
-		FROM product p,producttype pt
-		WHERE p.typeid = pt.id
+		FROM product p
+		LEFT JOIN producttype pt
+		ON p.typeid = pt.id
 		LIMIT #{offset},#{pagesize}
 	</select>
 
@@ -36,7 +37,7 @@
 	</delete>
 
 
-	<delete id="delBatchProduct">
+	<delete id="delBatchProduct" parameterType="java.lang.Integer">
 		DELETE FROM product WHERE id in
 		<foreach collection="array" item="id" open="(" close=")" separator=",">
 			#{id}

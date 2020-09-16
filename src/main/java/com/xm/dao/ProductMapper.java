@@ -23,5 +23,5 @@ public interface ProductMapper {
 
     int delProductById(@Param("id") int id);
 
-    int delBatchProduct(@Param("id") int[] ids);
+    int delBatchProduct(int[] ids);
 }
