@@ -27,7 +27,6 @@ public class UserController {
     @Autowired
     private UsersService usersService;
 
-
     //实现加入后台的登录页面/WEB-INF/jsp/login.jsp
     //@RequestMapping(value="/login",method=RequestMethod.GET)
     @GetMapping("login")///login请求的地址：//http://localhost:8080/zhuxiaomishop/login
