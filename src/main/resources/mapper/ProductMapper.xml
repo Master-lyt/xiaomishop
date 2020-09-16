@@ -36,7 +36,6 @@
 	</delete>
 
 
-	//批量删除
 	<delete id="delBatchProduct">
 		DELETE FROM product WHERE id in
 		<foreach collection="array" item="id" open="(" close=")" separator=",">
