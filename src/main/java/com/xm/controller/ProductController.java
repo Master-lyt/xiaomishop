@@ -4,7 +4,6 @@ import com.xm.entity.PageBean;
 import com.xm.entity.Producttype;
 import com.xm.service.ProductService;
 import com.xm.service.ProductTypeService;
-import com.xm.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,19 +25,21 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
     private ProductTypeService productTypeService;
+
 
     //获取所有的商品的信息
     @GetMapping("/getprobypage")
     public String showProduct(@RequestParam(name = "page", defaultValue = "1") int page, Model model){
         int pagesize = 5;
         PageBean<HashMap<String, Object>> products = productService.getAllProductByPage(page, pagesize);
-        model.addAttribute("products", products);
+        model.addAttribute("pagebean", products);
         //去页面product.jsp
         List<Producttype> productTypes = productTypeService.getAllProductType();
         model.addAttribute("ptlist",productTypes);
 
-        return "product";//WEB-INF/jsp/productnopage.jsp
+        return "productbypage";//WEB-INF/jsp/productnopage.jsp
     }
 
     //删除一行商品
