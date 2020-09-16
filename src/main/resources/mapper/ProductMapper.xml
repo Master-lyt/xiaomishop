@@ -9,6 +9,15 @@
 		INNER JOIN producttype pt
 		ON p.typeid = pt.id
 	</select>
+	
+	<select id="getProductsByPage" resultType="java.util.HashMap">
+		<bind name="offset" value="page*pagesize-pagesize"/>
+		SELECT
+		p.*,pt.name AS typename
+		FROM product p,producttype pt
+		WHERE p.typeid = pt.id
+		LIMIT #{offset},#{pagesize}
+	</select>
 
 	<select id="getAllProductByPage" resultType="java.util.HashMap">
 		<bind name="offset" value="page*pagesize-pagesize"/>

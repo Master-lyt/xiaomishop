@@ -1,6 +1,6 @@
 package com.xm.service;
 
-import com.xm.untils.PageBean;
+import com.xm.entity.PageBean;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.xm.untils;
+package com.xm.entity;
 
 import java.util.List;
 
