@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.http.HTTPException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -59,5 +60,12 @@ public class UserController {
         session.setAttribute("users", urs);
         return "main";//逻辑视图名称，/WEB-INF/jsp/逻辑视图名称.jsp ==main.jsp
     }
+
+    @GetMapping("logout")
+    public String userLogout(HttpSession session){
+        session.invalidate();
+        return "login";
+    }
+
 
 }

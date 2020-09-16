@@ -3,6 +3,7 @@ package com.xm.service.impl;
 import com.xm.dao.ProductMapper;
 import com.xm.entity.PageBean;
 import com.xm.service.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,17 @@ public class ProductServiceImpl implements ProductService {
 
     private int rowcount(){
         return productMapper.getRowcount();
+    }
+
+    @Override
+    public int delProductById(int id){
+        return productMapper.delProductById(id);
+
+    }
+
+    //批量删除
+    @Override
+    public int delBatchProduct(int[] ids){
+        return productMapper.delBatchProduct(ids);
     }
 }

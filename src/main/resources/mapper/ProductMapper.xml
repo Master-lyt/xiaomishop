@@ -30,4 +30,19 @@
 	<select id="getRowcount" resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM product
 	</select>
+
+	<delete id="delProductById">
+		DELETE FROM product WHERE id = #{id}
+	</delete>
+
+
+	//批量删除
+	<delete id="delBatchProduct">
+		DELETE FROM product WHERE id in
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+
+	</delete>
+
 </mapper>

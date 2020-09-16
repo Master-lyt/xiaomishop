@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
+	/*进入添加商品的页面*/
     function addpro(){
     	window.location.href="${pageContext.request.contextPath}/addproductpage";//get
     }
