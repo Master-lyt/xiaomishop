@@ -20,4 +20,6 @@ public interface ProductMapper {
     List<HashMap<String, Object>> getAllProductByPage(@Param("page") int page, @Param("pagesize") int pagesize);
 
     int getRowcount();
+
+    int delProductById(@Param("id") int id);
 }

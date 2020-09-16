@@ -18,5 +18,6 @@ public interface ProductService {
     //删除商品
     int delProductById( int id);
 
+    //分页获取所有商品
     PageBean<HashMap<String, Object>> getAllProductByPage(int page, int pagesize);
 }

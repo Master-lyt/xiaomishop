@@ -30,4 +30,8 @@
 	<select id="getRowcount" resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM product
 	</select>
+
+	<delete id="delProductById">
+		DELETE FROM product WHERE id = #{id}
+	</delete>
 </mapper>
