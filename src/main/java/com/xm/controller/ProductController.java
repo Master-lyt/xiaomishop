@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author lz
@@ -43,7 +44,8 @@ public class ProductController {
     //删除一行商品
     @GetMapping("delproduct")
     public String delProductById(int id){
-        return "redirect:/getproductbypage.jsp";
+
+        return "redirect:/productbypage";
     }
 
     //进入添加商品页面
@@ -55,5 +57,27 @@ public class ProductController {
         model.addAttribute("ptlist",productTypes);
         return "addProduct";
     }
+
+
+
+        //实现批量删除
+    /*
+    *1.需要获取参数一个或多个id 放到数组int【】 ids中
+    *2.
+    * *  */
+    @GetMapping("batchdelproduct")
+    public String delBatchProduct(int[] ids){
+        //调用业务层
+        //返回到商品信息页面
+
+        //测试信息
+        /*for(int id : ids){
+            System.out.println("========="+id);
+        }*/
+
+        productService.delBatchProduct(ids);
+        return "redirect:/productbypage";
+    }
+
 
 }

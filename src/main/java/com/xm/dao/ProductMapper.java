@@ -22,4 +22,6 @@ public interface ProductMapper {
     int getRowcount();
 
     int delProductById(@Param("id") int id);
+
+    int delBatchProduct(@Param("id") int[] ids);
 }
