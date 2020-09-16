@@ -29,7 +29,7 @@ public class UserController {
 
     //实现加入后台的登录页面/WEB-INF/jsp/login.jsp
     //@RequestMapping(value="/login",method=RequestMethod.GET)
-    @GetMapping("/login")///login请求的地址：//http://localhost:8080/zhuxiaomishop/login
+    @GetMapping("login")///login请求的地址：//http://localhost:8080/zhuxiaomishop/login
     public String toLoginPage(){
         return "login";
     }
