@@ -19,9 +19,9 @@ public interface ProductMapper {
     //获取所有的商品信息
     List<HashMap<String,Object>> getALLProducts();
 
-    List<HashMap<String, Object>> getAllProductByPage(@Param("page") int page, @Param("pagesize") int pagesize);
+    List<HashMap<String, Object>> getAllProductByPage(@Param("name") String name, @Param("typeId") int typeId, @Param("page") int page, @Param("pagesize") int pagesize);
 
-    int getRowcount();
+    int getRowcount(@Param("name") String name, @Param("typeId") int typeId);
 
     int delProductById(@Param("id") int id);
 

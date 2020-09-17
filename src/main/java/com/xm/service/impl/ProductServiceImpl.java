@@ -29,13 +29,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageBean<HashMap<String, Object>> getAllProductByPage(int page, int pagesize) {
-        List<HashMap<String, Object>> list = productMapper.getAllProductByPage(page, pagesize);
+    public PageBean<HashMap<String, Object>> getAllProductByPage(String name, int typeId, int page, int pagesize) {
+        List<HashMap<String, Object>> list = productMapper.getAllProductByPage(name, typeId, page, pagesize);
 
         PageBean<HashMap<String, Object>> pb = new PageBean<>();
         pb.setPage(page);
         pb.setList(list);
-        int rowcount = rowcount();
+        int rowcount = rowcount(name, typeId);
         if (rowcount % pagesize == 0) {
             pb.setPages(rowcount / pagesize);
         }else {
@@ -44,8 +44,8 @@ public class ProductServiceImpl implements ProductService {
         return pb;
     }
 
-    private int rowcount(){
-        return productMapper.getRowcount();
+    private int rowcount(String name, int typeId){
+        return productMapper.getRowcount(name, typeId);
     }
 
     @Override

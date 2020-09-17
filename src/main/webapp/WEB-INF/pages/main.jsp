@@ -48,7 +48,7 @@
 				<div id="lbottom">
 					<ul>
 						<!-- 获取商品@RequestMapping("/getprobypage") -->
-						<a href="${pageContext.request.contextPath}/getprobypage"
+						<a href="${pageContext.request.contextPath}/getproductbypage"
 							target="myright">
 							<li class="two"><span class="glyphicon glyphicon-book"
 								style="color: white;"></span>

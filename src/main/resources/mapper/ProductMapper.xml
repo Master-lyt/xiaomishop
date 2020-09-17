@@ -25,11 +25,27 @@
 		SELECT p.*,pt.name AS typename
 		FROM product p,producttype pt
 		WHERE p.typeid = pt.id
+		<if test=" name != null and name != '' ">
+			<bind name="name" value=" '%' + name + '%' "/>
+			AND p.name like #{name}
+		</if>
+		<if test=" typeId != null and typeId != -1 ">
+			AND p.typeid = #{typeId}
+		</if>
 		LIMIT #{offset},#{pagesize}
 	</select>
 
 	<select id="getRowcount" resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM product
+		SELECT COUNT(1)
+		FROM product p,producttype pt
+		WHERE p.typeid = pt.id
+		<if test=" name != null and name != '' ">
+			<bind name="name" value=" '%' + name + '%' "/>
+			AND p.name like #{name}
+		</if>
+		<if test=" typeId != null and typeId != -1 ">
+			AND p.typeid = #{typeId}
+		</if>
 	</select>
 
 	<delete id="delProductById">

@@ -62,7 +62,7 @@
 			      alert('请选择至少一条记录删除');
 			      return;
 			 }
-			 location.href="${pageContext.request.contextPath}/batchdelproduct?ids="+ids;
+			 location.href="${pageContext.request.contextPath}/batchdelproduct?ids="+ids;//get
 		});
 	});
 </script>
@@ -83,7 +83,7 @@
 			<p>商品管理>商品列表</p>
 		</div>
 		<div id="condition" style="text-align: center">
-			<form action="${pageContext.request.contextPath}/getprobypage" id="myform">
+			<form action="${pageContext.request.contextPath}/getproductbypage" id="myform">
 				商品名称：<input name="name" id="name" value="${name }">
 				商品类型:<select name="typeid">
 							<option value="-1">请选择</option>
@@ -154,7 +154,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="pre"><a
-									href="${pageContext.request.contextPath}/getprobypage?page=${pagebean.page-1}">
+									href="${pageContext.request.contextPath}/getproductbypage?page=${pagebean.page-1}&name=${name}&typeid=${typeid}">
 										上一页</a></li>
 							</c:otherwise>
 						</c:choose>
@@ -165,7 +165,7 @@
 								</c:when>
 								<c:otherwise>
 									<li class="num"><a
-										href="${pageContext.request.contextPath}/getprobypage?page=${index}">${index}</a></li>
+										href="${pageContext.request.contextPath}/getproductbypage?page=${index}&name=${name}&typeid=${typeid}">${index}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -175,7 +175,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="last"><a
-									href="${pageContext.request.contextPath}/getprobypage?page=${pagebean.page+1}">
+									href="${pageContext.request.contextPath}/getproductbypage?page=${pagebean.page+1}&name=${name}&typeid=${typeid}">
 										下一页</a></li>
 							</c:otherwise>
 						</c:choose>
