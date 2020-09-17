@@ -24,12 +24,14 @@
                 fileElementId: 'upimage',//文件上传控件的id属性  <input type="file" id="upimage" name="upimage" />
                 dataType: 'json',//返回值类型 一般设置为json
                 success: function(obj,status){//服务器成功响应处理函数
-                    $("#imgDiv").empty();  //清空原有数据
+                    var str = "${pageContext.request.contextPath}";
+                    str += obj.imgurl;
+                	$("#imgDiv").empty();  //清空原有数据
                     //创建img 标签对象
                     var imgObj = $("<img>");
                     //给img标签对象追加属性
                     //alert(obj.imgurl);
-                    imgObj.attr("src",obj.imgurl);
+                    imgObj.attr("src",str);
                     imgObj.attr("width","100px");
                     imgObj.attr("height","100px");
                     //将图片img标签追加到imgDiv末尾

@@ -24,6 +24,7 @@ public class AddressController {
     @RequestMapping("/getaddress")
     public String getAllAddress(Map<String, Object> map){
         List<Address> address = addressService.getAllAddress();
+
         map.put("address", address);
         return "list";
     }

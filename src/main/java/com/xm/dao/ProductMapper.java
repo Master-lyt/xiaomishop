@@ -1,5 +1,7 @@
 package com.xm.dao;
 
+import com.xm.entity.ProductType;
+import  com.xm.entity.Product;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,4 +26,6 @@ public interface ProductMapper {
     int delProductById(@Param("id") int id);
 
     int delBatchProduct(int[] ids);
+
+    int addProduct(Product product);
 }

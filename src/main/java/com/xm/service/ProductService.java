@@ -1,6 +1,7 @@
 package com.xm.service;
 
 import com.xm.entity.PageBean;
+import com.xm.entity.Product;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,4 +24,7 @@ public interface ProductService {
 
     //批量删除商品
     int delBatchProduct(int[] ids);
+
+    //新增商品
+    int addProduct(Product product);
 }

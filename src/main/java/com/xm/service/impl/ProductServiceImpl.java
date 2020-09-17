@@ -2,6 +2,7 @@ package com.xm.service.impl;
 
 import com.xm.dao.ProductMapper;
 import com.xm.entity.PageBean;
+import com.xm.entity.Product;
 import com.xm.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int delBatchProduct(int[] ids){
         return productMapper.delBatchProduct(ids);
+    }
+
+    //增加商品
+    @Override
+    public int addProduct(Product product) {
+        productMapper.addProduct(product);
+        return 0;
     }
 }
