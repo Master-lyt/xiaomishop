@@ -53,4 +53,6 @@
         INSERT INTO product (name, content, price, image, number, typeid, date)
             VALUE (#{name}, #{content}, #{price}, #{image}, #{number}, #{typeid}, #{date})
     </insert>
+
+
 </mapper>
