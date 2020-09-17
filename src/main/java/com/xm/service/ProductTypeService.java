@@ -1,5 +1,6 @@
 package com.xm.service;
 
+import com.xm.entity.PageBean;
 import com.xm.entity.ProductType;
 
 import java.util.List;
@@ -11,8 +12,7 @@ import java.util.List;
  */
 public interface ProductTypeService {
 
-    //
-    long getProductTypeRowCount();
+    int getProductTypeRowCount();
     List<ProductType> selectProductType();
     ProductType selectProductTypeById(Integer id);
     int insertProductType(ProductType value);
@@ -20,5 +20,5 @@ public interface ProductTypeService {
     int deleteProductTypeById(Integer id);
     int updateProductTypeById(ProductType enti);
     int updateNonEmptyProductTypeById(ProductType enti);
-
+    PageBean<ProductType> selectProductTypeByPage(int page, String typename, int pagesize);
 }

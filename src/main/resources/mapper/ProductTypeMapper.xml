@@ -12,7 +12,7 @@
         ,producttype.name as name
     </sql>
 
-    <select id="getProductTypeRowCount" resultType="java.lang.Long">
+    <select id="getProductTypeRowCount" resultType="java.lang.Integer">
         select count(1) from producttype
     </select>
 
@@ -27,6 +27,17 @@
         <include refid="producttype_Column" />
         from producttype
         where producttype.id = #{id}
+    </select>
+
+    <select id="selectProductTypeByPage" resultMap="result_ProductType_Map">
+        <bind name="offset" value="page*pagesize-pagesize"/>
+        <bind name="name" value="'%' + typename + '%'"/>
+        select
+        <include refid="producttype_Column" />
+        from producttype
+        WHERE 1 = 1
+        And name LIKE #{name}
+        LIMIT #{offset},#{pagesize}
     </select>
 
 

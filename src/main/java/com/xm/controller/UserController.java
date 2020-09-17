@@ -1,17 +1,15 @@
 package com.xm.controller;
 
 import com.xm.entity.User;
-import com.xm.service.UsersService;
+import com.xm.service.UserService;
 import com.xm.untils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.http.HTTPException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -25,7 +23,7 @@ public class UserController {
 
     //使用spring 注入@Autowired 完成对业务层的注入
     @Autowired
-    private UsersService usersService;
+    private UserService usersService;
 
     //实现加入后台的登录页面/WEB-INF/jsp/login.jsp
     //@RequestMapping(value="/login",method=RequestMethod.GET)

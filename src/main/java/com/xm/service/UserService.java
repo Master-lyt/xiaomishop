@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @date 2020/9/15 - 15:55
  * @function
  */
-public interface UsersService {
+public interface UserService {
 
     //登录方法
     HashMap<String,Object> userLogin(User user);

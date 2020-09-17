@@ -79,7 +79,42 @@
 					</tbody>
 				</table>
 				<!--分页栏 动态生成-->
-				<div id="kkpager"></div>
+<%--				<div id="kkpager"></div>--%>
+				<div class="footNum">
+					<ul>
+						<c:choose>
+							<c:when test="${pagebean.page eq 1 }">
+								<li class="pre"><a href="javascript:void(0)">上一页</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="pre"><a
+										href="${pageContext.request.contextPath}/toproducttypepage?page=${pagebean.page-1}">
+									上一页</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:forEach begin="1" end="${pagebean.pages}" step="1" var="index">
+							<c:choose>
+								<c:when test="${pagebean.page eq index}">
+									<li class="num current"><a href="javascript:void(0)">${index}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="num"><a
+											href="${pageContext.request.contextPath}/toproducttypepage?page=${index}">${index}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${pagebean.page eq pagebean.pages}">
+								<li class="last"><a href="javascript:void(0)">下一页</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="last"><a
+										href="${pageContext.request.contextPath}/toproducttypepage?page=${pagebean.page+1}">
+									下一页</a></li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

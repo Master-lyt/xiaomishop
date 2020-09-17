@@ -1,6 +1,7 @@
 package com.xm.service.impl;
 
 import com.xm.dao.ProductTypeMapper;
+import com.xm.entity.PageBean;
 import com.xm.entity.ProductType;
 import com.xm.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     private ProductTypeMapper productTypeMapper;
 
     @Override
-    public long getProductTypeRowCount(){
+    public int getProductTypeRowCount(){
         return productTypeMapper.getProductTypeRowCount();
     }
 
@@ -57,6 +58,26 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     public int updateNonEmptyProductTypeById(ProductType enti){
         return productTypeMapper.updateNonEmptyProductTypeById(enti);
+    }
+
+    @Override
+    public PageBean<ProductType> selectProductTypeByPage(int page, String typename, int pagesize) {
+        List<ProductType> list = productTypeMapper.selectProductTypeByPage(page, typename, pagesize);
+
+        PageBean<ProductType> pb = new PageBean<>();
+        pb.setPage(page);
+        pb.setList(list);
+        int rowcount = rowcount();
+        if (rowcount % pagesize == 0) {
+            pb.setPages(rowcount / pagesize);
+        }else {
+            pb.setPages(rowcount / pagesize + 1);
+        }
+        return pb;
+    }
+
+    private int rowcount(){
+        return productTypeMapper.getProductTypeRowCount();
     }
 
     public ProductTypeMapper getProductTypeMapper() {

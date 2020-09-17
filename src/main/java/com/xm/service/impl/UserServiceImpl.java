@@ -3,7 +3,7 @@ package com.xm.service.impl;
 import com.xm.dao.RoleMapper;
 import com.xm.dao.UserMapper;
 import com.xm.entity.User;
-import com.xm.service.UsersService;
+import com.xm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.HashMap;
  * @function
  */
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UserServiceImpl implements UserService {
 
     //调用数据访问层
     @Autowired
