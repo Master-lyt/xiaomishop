@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.dao.ProductTypeMapper">
+
+    <resultMap id="result_ProductType_Map" type="com.xm.entity.ProductType">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+    </resultMap>
+
+    <sql id="producttype_Column">
+        producttype.id as id
+        ,producttype.name as name
+    </sql>
+
+    <select id="getProductTypeRowCount" resultType="java.lang.Long">
+        select count(1) from producttype
+    </select>
+
+    <select id="selectProductType" resultMap="result_ProductType_Map">
+        select
+        <include refid="producttype_Column" />
+        from producttype
+    </select>
+
+    <select id="selectProductTypeById" parameterType="java.lang.Integer" resultMap="result_ProductType_Map">
+        select
+        <include refid="producttype_Column" />
+        from producttype
+        where producttype.id = #{id}
+    </select>
+
+
+    <insert id="insertProductType" parameterType="com.xm.entity.ProductType">
+        insert into producttype(name) values(#{name})
+    </insert>
+
+    <insert id="insertNonEmptyProductType" parameterType="com.xm.entity.ProductType">
+        insert into producttype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null"> #{id},</if>
+            <if test="name != null"> #{name},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteProductTypeById" parameterType="java.lang.Integer">
+        delete from producttype
+        where id = #{id}
+    </delete>
+
+    <update id="updateProductTypeById" parameterType="com.xm.entity.ProductType">
+        update producttype set
+            name=#{name}
+        where id=#{id}
+    </update>
+
+    <update id="updateNonEmptyProductTypeById" parameterType="com.xm.entity.ProductType">
+        update producttype
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>

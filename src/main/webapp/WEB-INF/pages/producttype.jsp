@@ -63,7 +63,20 @@
 						</tr>
 					</thead>
 					<!-- 动态生成数据，做数据的显示的局部刷新 此处需要用Ajax动态刷新-->
-					<tbody id="producttypelist"></tbody>
+					<tbody id="producttypelist">
+						<c:forEach items="${ptlist}" var="p">
+							<tr>
+								<td>${p.id}</td>
+								<td>${p.name}</td>
+								<td>
+									<button type="button" class="btn btn-info myupdate"
+											onclick="pmodify(${p.id})">修改</button>
+									<button type="button" class="btn btn-warning del" id="mydel"
+											onclick="pdel(${p.id})">删除</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 				<!--分页栏 动态生成-->
 				<div id="kkpager"></div>
@@ -73,18 +86,15 @@
 </body>
 <script type="text/javascript">
     //修改函数
-    function modify(id) {
+    function pmodify(id) {
         location.href = "${pageContext.request.contextPath}/toupdateprotypepage?id="+id;//get
     }
     //删除函数
-	$(document).ready(function(){
-		  $(document).on("click",".del",function(){
-			  	var id = $(this).attr("name");
-				if(confirm("确定要删除吗？")){
-					location.href="${pageContext.request.contextPath}/delproducttype?id="+id;//get
-				}
-		   });
-	});
+	function pdel(id) {
+		if (confirm("确定删除吗")) {
+			location.href = "${pageContext.request.contextPath}/delproducttype?id="+id;//get
+		}
+	}
     
     //分页的js代码
     //第一次进入页面默认显示第一页的数据
