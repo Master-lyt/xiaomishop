@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ProductTypeService {
 
-    int getProductTypeRowCount();
+    int getProductTypeRowCount(String typename);
     List<ProductType> selectProductType();
     ProductType selectProductTypeById(Integer id);
     int insertProductType(ProductType value);

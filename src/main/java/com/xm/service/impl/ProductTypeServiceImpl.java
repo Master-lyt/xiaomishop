@@ -21,8 +21,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     private ProductTypeMapper productTypeMapper;
 
     @Override
-    public int getProductTypeRowCount(){
-        return productTypeMapper.getProductTypeRowCount();
+    public int getProductTypeRowCount(String typename){
+        return productTypeMapper.getProductTypeRowCount(typename);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         PageBean<ProductType> pb = new PageBean<>();
         pb.setPage(page);
         pb.setList(list);
-        int rowcount = rowcount();
+        int rowcount = rowcount(typename);
         if (rowcount % pagesize == 0) {
             pb.setPages(rowcount / pagesize);
         }else {
@@ -76,8 +76,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return pb;
     }
 
-    private int rowcount(){
-        return productTypeMapper.getProductTypeRowCount();
+    private int rowcount(String typename){
+        return productTypeMapper.getProductTypeRowCount(typename);
     }
 
     public ProductTypeMapper getProductTypeMapper() {

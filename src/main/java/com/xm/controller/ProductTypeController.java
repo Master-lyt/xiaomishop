@@ -28,7 +28,6 @@ public class ProductTypeController {
                                         @RequestParam(name = "typename", defaultValue = "") String typename, Model model){
         int pagesize = 5;
         PageBean<ProductType> products = productTypeService.selectProductTypeByPage(page, typename, pagesize);
-        List<ProductType> list = products.getList();
         model.addAttribute("pagebean", products);
         model.addAttribute("typename", typename);
         return "producttypenoajax";

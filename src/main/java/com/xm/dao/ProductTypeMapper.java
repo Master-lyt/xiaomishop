@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ProductTypeMapper {
 
-    int getProductTypeRowCount();
+    int getProductTypeRowCount(@Param("typeName") String typename);
     List<ProductType> selectProductType();
     ProductType selectProductTypeById(Integer id);
     int insertProductType(ProductType value);
