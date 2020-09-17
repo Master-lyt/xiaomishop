@@ -10,7 +10,7 @@ public class Product {
   private String image;
   private long number;
   private long typeid;
-  private java.sql.Timestamp date;
+  private java.util.Date date;
 
 
   public long getId() {
@@ -76,11 +76,11 @@ public class Product {
   }
 
 
-  public java.sql.Timestamp getDate() {
+  public java.util.Date getDate() {
     return date;
   }
 
-  public void setDate(java.sql.Timestamp date) {
+  public void setDate(java.util.Date date) {
     this.date = date;
   }
 

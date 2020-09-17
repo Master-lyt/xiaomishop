@@ -196,5 +196,8 @@
     function pmodify(id) {
         location.href = "${pageContext.request.contextPath}/getproductbyid?id="+id;
     }
+    function addpro() {
+		location.href = "${pageContext.request.contextPath}/addproductpage"
+	}
 </script>
 </html>

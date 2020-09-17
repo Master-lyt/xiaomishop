@@ -45,8 +45,12 @@
 
 	</delete>
 
-	<insert id="addProduct" parameterType="Product">
-		INSERT INTO product (name, content, price, image, number, typeid, date)
-		VALUE (#{name}, #{content}, #{price}, #{image}, #{number}, #{typeid}, #{date})
-	</insert>
+    <select id="getAll" resultType="ProductType">
+        SELECT * FROM producttype
+    </select>
+
+    <insert id="addProduct" parameterType="Product">
+        INSERT INTO product (name, content, price, image, number, typeid, date)
+            VALUE (#{name}, #{content}, #{price}, #{image}, #{number}, #{typeid}, #{date})
+    </insert>
 </mapper>
