@@ -27,4 +27,8 @@ public interface ProductService {
 
     //新增商品
     int addProduct(Product product);
+
+    Product getProductById(int id);
+
+    public int updateProduct(Product product);
 }

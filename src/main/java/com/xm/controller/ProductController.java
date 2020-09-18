@@ -81,9 +81,7 @@ public class ProductController {
         return "addproduct";
     }
 
-
-
-        //实现批量删除
+    //实现批量删除
     /*
     *1.需要获取参数一个或多个id 放到数组int【】 ids中
     *2.
@@ -136,5 +134,26 @@ public class ProductController {
         map.put("imgurl", str);
         map.put("imgName", fileName);
         return map;
+    }
+
+    @GetMapping("/getproductbyid")
+    public String getProductById(int id, Model model){
+        Product product = productService.getProductById(id);
+        List<ProductType> plist = productTypeService.selectProductType();
+        model.addAttribute("product", product);
+        model.addAttribute("ptlist", plist);
+        return "updateproduct";
+    }
+
+    @PostMapping("/updateproduct")
+    public String updateProduct(Product product){
+        Date date = new Date();
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = sdf.format(date);
+        Timestamp ts = Timestamp.valueOf(dateStr);
+        product.setDate(ts);
+        System.out.println(product.toString());
+        productService.updateProduct(product);
+        return "redirect://getprobypage";
     }
 }

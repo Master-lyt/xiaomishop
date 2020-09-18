@@ -12,6 +12,19 @@ public class Product {
   private long typeid;
   private java.util.Date date;
 
+  @Override
+  public String toString() {
+    return "Product{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", content='" + content + '\'' +
+            ", price=" + price +
+            ", image='" + image + '\'' +
+            ", number=" + number +
+            ", typeid=" + typeid +
+            ", date=" + date +
+            '}';
+  }
 
   public long getId() {
     return id;
@@ -74,7 +87,6 @@ public class Product {
   public void setTypeid(long typeid) {
     this.typeid = typeid;
   }
-
 
   public java.util.Date getDate() {
     return date;

@@ -54,5 +54,14 @@
             VALUE (#{name}, #{content}, #{price}, #{image}, #{number}, #{typeid}, #{date})
     </insert>
 
+	<update id="updateProduct" parameterType="Product">
+		UPDATE product
+		SET name=#{name},content=#{content},price=#{price},image=#{image},number=#{number},
+		    typeid=#{typeid},date=#{date}
+		WHERE id=#{id}
+	</update>
 
+	<select id="getProductById" resultType="Product" parameterType="java.lang.Integer">
+		SELECT * FROM product WHERE id = #{id}
+	</select>
 </mapper>

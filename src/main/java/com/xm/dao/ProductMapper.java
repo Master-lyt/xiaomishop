@@ -28,4 +28,8 @@ public interface ProductMapper {
     int delBatchProduct(int[] ids);
 
     int addProduct(Product product);
+
+    int updateProduct(Product product);
+
+    Product getProductById(@Param("id") int id);
 }
