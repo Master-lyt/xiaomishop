@@ -32,6 +32,7 @@
 		<if test=" typeId != null and typeId != -1 ">
 			AND p.typeid = #{typeId}
 		</if>
+		ORDER By p.date DESC
 		LIMIT #{offset},#{pagesize}
 	</select>
 
