@@ -32,3 +32,4 @@ public interface ProductService {
 
     public int updateProduct(Product product);
 }
+
