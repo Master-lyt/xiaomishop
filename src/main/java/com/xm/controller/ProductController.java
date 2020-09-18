@@ -59,7 +59,7 @@ public class ProductController {
     @GetMapping("/delproduct")
     public String delProductById(int id){
         int i = productService.delProductById(id);
-        return "redirect:/getprobypage";
+        return "redirect:/getproductbypage";
     }
 
     //进入添加商品页面
@@ -103,7 +103,7 @@ public class ProductController {
         product.setDate(ts);
         productService.addProduct(product);
         //返回新增商品页面
-        return "redirect://addproductpage";
+        return "redirect:/getproductbypage";
     }
 
     //上传图片
@@ -144,6 +144,6 @@ public class ProductController {
         product.setDate(ts);
         System.out.println(product.toString());
         productService.updateProduct(product);
-        return "redirect://getprobypage";
+        return "redirect:/getproductbypage";
     }
 }
