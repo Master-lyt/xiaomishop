@@ -55,7 +55,7 @@ public class ProductController {
                               @RequestParam(name = "typeid", defaultValue = "-1") int typeId,
                               @RequestParam(name = "page", defaultValue = "1") int page, Model model){
         int pagesize = 5;
-        PageBean<HashMap<String, Object>> products = productService.getAllProductByPage(page, pagesize);
+        PageBean<HashMap<String, Object>> products = productService.getAllProductByPage(name,typeId, page, pagesize);
         model.addAttribute("pagebean", products);
         model.addAttribute("ptlist",productTypeService.selectProductType());
         model.addAttribute("name", name);
