@@ -50,24 +50,23 @@ public class ProductController {
 
 
     //获取所有的商品的信息
-    @GetMapping("/getprobypage")
-    public String showProduct(@RequestParam(name = "page", defaultValue = "1") int page, Model model){
+    @GetMapping("/getproductbypage")
+    public String showProduct(@RequestParam(name = "name", defaultValue = "") String name,
+                              @RequestParam(name = "typeid", defaultValue = "-1") int typeId,
+                              @RequestParam(name = "page", defaultValue = "1") int page, Model model){
         int pagesize = 5;
         PageBean<HashMap<String, Object>> products = productService.getAllProductByPage(page, pagesize);
         model.addAttribute("pagebean", products);
-        //去页面product.jsp
-        List<ProductType> productTypes = productTypeService.selectProductType();
-        model.addAttribute("ptlist",productTypes);
-
+        model.addAttribute("ptlist",productTypeService.selectProductType());
+        model.addAttribute("name", name);
+        model.addAttribute("typeid", typeId);
         return "productbypage";//WEB-INF/jsp/productnopage.jsp
     }
 
     //删除一行商品
     @GetMapping("/delproduct")
     public String delProductById(int id){
-        System.out.println("id:" + id);
         int i = productService.delProductById(id);
-        System.out.println("i:" + i);
         return "redirect:/getprobypage";
     }
 
@@ -97,7 +96,7 @@ public class ProductController {
 //        }
 
         productService.delBatchProduct(ids);
-        return "redirect:/getprobypage";
+        return "redirect:/getproductbypage";
     }
 
 
@@ -135,7 +134,6 @@ public class ProductController {
         map.put("imgName", fileName);
         return map;
     }
-
     @GetMapping("/getproductbyid")
     public String getProductById(int id, Model model){
         Product product = productService.getProductById(id);
