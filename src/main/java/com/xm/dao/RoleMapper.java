@@ -3,6 +3,8 @@ package com.xm.dao;
 import com.xm.entity.Role;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author lz
  * @date 2020/9/15 - 15:53
@@ -14,4 +16,5 @@ public interface RoleMapper {
     //通过id查询角色的名称
     Role getRoleById(int id);
 
+    List<Role> getAllRole();
 }

@@ -81,16 +81,9 @@ public class ProductController {
     public String delBatchProduct(int[] ids){
         //调用业务层
         //返回到商品信息页面
-
-        //测试信息
-//        for(int id : ids){
-//            System.out.println("========="+id);
-//        }
-
         productService.delBatchProduct(ids);
         return "redirect:/getproductbypage";
     }
-
 
     //实现新增商品
     @PostMapping("/addproduct")

@@ -1,9 +1,9 @@
 package com.xm.service.impl;
 
-import com.xm.dao.ProductMapper;
+
 import com.xm.entity.PageBean;
 import com.xm.entity.Product;
-
+import com.xm.dao.ProductMapper;
 import com.xm.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
