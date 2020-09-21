@@ -29,7 +29,8 @@
 			</div>
 			<div class="right_login fr clearfix">
 				<c:if test="${empty customer }">
-					<a href="${pageContext.request.contextPath}/tocustomerloginpage">登陆</a>
+<%--					tocustomerloginpage--%>
+					<a href="${pageContext.request.contextPath}/login">登录</a>
 					<span class="sep">|</span>
 				</c:if>
 				<c:if test="${not empty customer }">

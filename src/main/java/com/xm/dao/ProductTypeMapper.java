@@ -1,6 +1,8 @@
 package com.xm.dao;
 
 import com.xm.entity.ProductType;
+import com.xm.form.ProductTypeForm;
+import com.xm.untils.Query;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,14 +14,14 @@ import java.util.List;
  */
 public interface ProductTypeMapper {
 
-    int getProductTypeRowCount(@Param("typeName") String typename);
+    int getProductTypeRowCount(ProductType productType);
     List<ProductType> selectProductType();
     ProductType selectProductTypeById(Integer id);
-    int insertProductType(ProductType value);
-    int insertNonEmptyProductType(ProductType value);
+    int insertProductType(@Param("value")ProductType value);
+    int insertNonEmptyProductType(@Param("value")ProductType value);
     int deleteProductTypeById(Integer id);
-    int updateProductTypeById(ProductType enti);
-    int updateNonEmptyProductTypeById(ProductType enti);
-    List<ProductType> selectProductTypeByPage(@Param("page") int page, @Param("typename") String typename, @Param("pagesize") int pagesize);
+    int updateProductTypeById(@Param("enti")ProductType enti);
+    int updateNonEmptyProductTypeById(@Param("enti")ProductType enti);
+    List<ProductType> selectProductTypeByPage(@Param("productType") ProductType productType, @Param("query")Query query);
 
 }

@@ -3,8 +3,8 @@
 <mapper namespace="com.xm.dao.ProductTypeMapper">
 
     <resultMap id="result_ProductType_Map" type="com.xm.entity.ProductType">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
+        <id column="id" property="typeId" />
+        <result column="name" property="typeName" />
     </resultMap>
 
     <sql id="producttype_Column">
@@ -35,21 +35,23 @@
     </select>
 
     <select id="selectProductTypeByPage" resultMap="result_ProductType_Map">
-        <bind name="offset" value="page*pagesize-pagesize"/>
         select
         <include refid="producttype_Column" />
         from producttype
         WHERE 1 = 1
-        <if test="typename != null and typename != ''">
-            <bind name="name" value="'%' + typename + '%'"/>
+        <if test="productType.typeName != null and productType.typeName != ''">
+            <bind name="name" value="'%' + productType.typeName + '%'"/>
             And name LIKE #{name}
         </if>
-        LIMIT #{offset},#{pagesize}
+        <if test="productType.typeId != null and productType.typeId != -1">
+            AND id = #{productType.typeId}
+        </if>
+        LIMIT #{query.offset},#{query.ps}
     </select>
 
 
     <insert id="insertProductType" parameterType="com.xm.entity.ProductType">
-        insert into producttype(name) values(#{name})
+        insert into producttype(name) values(#{value.typeName})
     </insert>
 
     <insert id="insertNonEmptyProductType" parameterType="com.xm.entity.ProductType">
@@ -59,8 +61,8 @@
             <if test="name != null">name,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null"> #{id},</if>
-            <if test="name != null"> #{name},</if>
+            <if test="id != null"> #{value.typeId},</if>
+            <if test="name != null"> #{value.typeName},</if>
         </trim>
     </insert>
 
@@ -71,18 +73,18 @@
 
     <update id="updateProductTypeById" parameterType="com.xm.entity.ProductType">
         update producttype set
-            name=#{name}
-        where id=#{id}
+            name=#{enti.typeName}
+        where id=#{enti.typeId}
     </update>
 
     <update id="updateNonEmptyProductTypeById" parameterType="com.xm.entity.ProductType">
         update producttype
         <set>
             <if test="name != null">
-                name=#{name},
+                name=#{enti.typeName},
             </if>
         </set>
-        where id=#{id}
+        where id=#{enti.typeId}
     </update>
 
 </mapper>

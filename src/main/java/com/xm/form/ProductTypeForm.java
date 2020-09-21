@@ -1,11 +1,11 @@
-package com.xm.entity;
+package com.xm.form;
 
 /**
  * @author lz
- * @date 2020/9/17 - 9:00
+ * @date 2020/9/21 - 10:45
  * @function
  */
-public class ProductType {
+public class ProductTypeForm {
 
     private Integer typeId;
     private String typeName;
@@ -26,19 +26,11 @@ public class ProductType {
         this.typeName = typeName;
     }
 
-    public ProductType() {
+    public ProductTypeForm() {
     }
 
-    public ProductType(Integer typeId, String typeName) {
+    public ProductTypeForm(Integer typeId, String typeName) {
         this.typeId = typeId;
         this.typeName = typeName;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductType{" +
-                "typeId=" + typeId +
-                ", typeName='" + typeName + '\'' +
-                '}';
     }
 }

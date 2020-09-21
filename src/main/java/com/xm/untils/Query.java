@@ -39,4 +39,11 @@ public class Query {
         return pn*ps-ps;
     }
 
+    @Override
+    public String toString() {
+        return "Query{" +
+                "pn=" + pn +
+                ", ps=" + ps +
+                '}';
+    }
 }

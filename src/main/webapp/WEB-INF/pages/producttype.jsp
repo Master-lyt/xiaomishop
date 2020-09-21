@@ -47,7 +47,7 @@
 		<p>商品类型管理>商品类型列表</p>
 	</div>
 	<div id="condition" style="text-align: center">
-		<form  id="myform">
+		<form id="myform">
 			商品类型ID：<input name="tid" id="tid" value="${tid }" placeholder="请输入商品类型ID">
 			商品类型名称：<input name="tname" id="tname" value="${tname }" placeholder="请输入商品类型名称">
 			<input id="search" type="button"  value="查询" />
@@ -57,10 +57,6 @@
 	<div id="table">
 		<div id="top">
 			<input type="button" class="btn btn-warning" id="btn1" value="新增商品类型" onclick="addproducttypepage()">
-			<form action="${pageContext.request.contextPath}/toproducttypepage" method="get" class="i">
-				请输入类型的名称<input type="text" name="typename" value="${typename }"/>
-				<input type="submit" value="查询"/>
-			</form>
 		</div>
 		<!--显示没有分页的商品信息-->
 		<div id="middle">
@@ -82,26 +78,18 @@
 </div>
 </body>
 <script type="text/javascript">
-	//修改函数
-	function modify(id) {
-		location.href = "${pageContext.request.contextPath}/toupdateprotypepage?id="+id;//get
-	}
-	//删除函数
-	$(document).ready(function(){
-		$(document).on("click",".del",function(){
-			var id = $(this).attr("name");
-			if(confirm("确定要删除吗？")){
-				location.href="${pageContext.request.contextPath}/delproducttype?id="+id;//get
-			}
-		});
-	});
-
 	//分页的js代码
 	//第一次进入页面默认显示第一页的数据
 	var currentPage = 1;
+
+	//载入 (默认加载全部) 默认第一次为currentPage为 1
+	loadData(currentPage);
+
 	//查询  
 	function loadData(page) {
-		currentPage = page;
+
+		var currentPage = page;
+
 		//获取查询的参数
 		//商品类型的ID值
 		var tid = $("#tid").val();
@@ -110,37 +98,41 @@
 		}
 		//商品类型的名称值
 		var tname = $("#tname").val();
+
 		//异步加载数据 参数的格式为json格式的参数{currentPage:page} 参数的名称currentPage 参数的值page
 		//在springmvc中使用Map集合接受参数，还需要注解@RequestParam
 		//数据返回的对象名称为data,名称可以自定义，返回的格式有时json
-		$.post('${pageContext.request.contextPath}/producttype_list_ajax', {currentPage:page,typeId:tid,typeName:tname}, function(data){
-			//先清除前一步的数据tbody
-			$("#producttypelist").html("");
-			//先清除前一步的分页div
-			$("#kkpager").html("");
-			//遍历数据 生成动态的数据 附加到tbody里面去 ，data就是我们的分页的实体类PageBean转换后的Map集合,list键就是数据
-			if (data.list != null && data.list.length > 0) {
-				for (var i = 0; i < data.list.length; i++) {
-					//将数据动态的附加到<tbody id="producttypelist"></tbody>
-					$("#producttypelist").append("<tr>"+
-							"<td>"+data.list[i].id+"</td>"+
-							"<td>"+data.list[i].name+"</td>"+
-							"<td><a href='#' onclick=location.href='${pageContext.request.contextPath}/producttypemodify?id="+data.list[i].id+"'>修改</a>"+
-							"<a  href='#' class='del'  name="+data.list[i].id+">删除 </a>"+
-							"</td></tr>");
+		$.ajax({
+			type:"GET",
+			url:"${pageContext.request.contextPath}/producttype_list_ajax",
+			data:{pn:currentPage,typeId:tid,typeName:tname},
+			dataType:"json",
+			success:function (data) {
+				//先清除前一步的数据tbody
+				$("#producttypelist").html("");
+				//先清除前一步的分页div
+				$("#kkpager").html("");
+				//遍历数据 生成动态的数据 附加到tbody里面去 ，data就是我们的分页的实体类PageBean转换后的Map集合,list键就是数据
+				if (data.list != null && data.list.length > 0) {
+					for (var i = 0; i < data.list.length; i++) {
+						//将数据动态的附加到<tbody id="producttypelist"></tbody>
+						$("#producttypelist").append("<tr>"+
+								"<td>"+data.list[i].typeId+"</td>"+
+								"<td>"+data.list[i].typeName+"</td>"+
+								"<td><a href='#' onclick=location.href='${pageContext.request.contextPath}/producttypemodify?id="+data.list[i].typeId+"'>修改</a>"+
+								"<a  href='#' class='del'  name="+data.list[i].typeId+">删除 </a>"+
+								"</td></tr>");
+					}
 				}
+				//分页脚标 ：data.pageSize每页显示数， data.pageCount总的页数， data.rowCount总的行数
+				createPageInfo(page,data.pageSize,data.pageCount,data.rowCount,goToPage);
 			}
-			//分页脚标 ：data.pageSize每页显示数， data.pageCount总的页数， data.rowCount总的行数
-			createPageInfo(page,data.pageSize,data.pageCount,data.rowCount,goToPage);
-		},"json" );
+		});
 	}
 
 	function goToPage(n){
 		loadData(n);
 	}
-
-	//载入 (默认加载全部) 默认第一次为currentPage为 1
-	loadData(currentPage);
 
 	//init
 	function createPageInfo(currentPage,pageSize,pageCount,recordCount,callbackFunction){
@@ -178,5 +170,20 @@
 	$("#search").bind("click",function(){
 		loadData(currentPage);
 	});
+
+	//修改函数
+	function modify(id) {
+		location.href = "${pageContext.request.contextPath}/toupdateprotypepage?id="+id;//get
+	}
+	//删除函数
+	$(document).ready(function(){
+		$(document).on("click",".del",function(){
+			var id = $(this).attr("name");
+			if(confirm("确定要删除吗？")){
+				location.href="${pageContext.request.contextPath}/delproducttype?id="+id;//get
+			}
+		});
+	});
+
 </script>
 </html>
