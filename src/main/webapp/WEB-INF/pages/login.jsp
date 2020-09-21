@@ -9,7 +9,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/login.css" />
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript"
@@ -19,41 +19,38 @@
 </head>
 
 <body>
-	<div id="login">
+<div id="bottom">
+	<form id="loginForm" class="login-form" method="POST" action="${pageContext.request.contextPath}/login">
 		<div id="top">
-			<img src="${pageContext.request.contextPath}/resources/images/cloud.jpg" /><span>LOGIN</span>
+			<img src="${pageContext.request.contextPath}/resources/images/cloud.jpg" />
+			<span>Login</span>
 		</div>
-		<span style="color: red">${info}</span>
-		<div id="bottom">
-			<form action="${pageContext.request.contextPath}/login" method="post">
-				<table id="table">
-					<tr>
-						<td class="td1">用户名：</td>
-						<td><input type="text" placeholder="Username" class="td2" name="uname"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><span id="nameerr"></span></td>
-					</tr>
-					<tr>
-						<td class="td1">密码：</td>
-						<td><input type="password" placeholder="Password" class="td2" name="upass"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><span id="pwderr"></span></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td colspan="2">
-							<input type="submit" value="登录" class="td3">
-						</td>
-					</tr>
-				</table>
-			</form>
+		<div class="info">${info}</div>
+
+		<div class="txtb">
+			<input type="text" name="uname" autocomplete="off">
+			<span data-placeholder="用户名"></span>
 		</div>
 
-	</div>
+		<div class="txtb">
+			<input type="password" name="upass" autocomplete="off">
+			<span data-placeholder="密码"></span>
+		</div>
+
+		<button type="submit" class="btn btn-primary loginbtn">登录</button>
+	</form>
+	<script type="text/javascript">
+		$(".txtb input").on("focus", function(){
+			$(this).addClass("focus");
+		});
+
+		$(".txtb input").on("blur", function(){
+			if($(this).val() == "")
+				$(this).removeClass("focus");
+		});
+
+	</script>
+</div>
 </body>
 
 </html>
