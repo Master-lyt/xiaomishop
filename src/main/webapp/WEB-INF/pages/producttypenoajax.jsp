@@ -11,6 +11,12 @@
     	window.location.href="${pageContext.request.contextPath}/addproducttypepage";//get
     }
 </script>
+<style>
+	.i{
+		display: inline;
+		margin-left: 160px;
+	}
+</style>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/reset.css">
@@ -43,8 +49,7 @@
 		<div id="table">
 			<div id="top">
 				<input type="button" class="btn btn-warning" id="btn1" value="新增商品类型" onclick="addproducttypepage()">
-				&nbsp;&nbsp;&nbsp;
-				<form action="${pageContext.request.contextPath}/toproducttypepage" method="get">
+				<form action="${pageContext.request.contextPath}/toproducttypepage" method="get" class="i">
 					请输入类型的名称<input type="text" name="typename" value="${typename }"/>
 					<input type="submit" value="查询"/>
 				</form>

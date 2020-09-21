@@ -102,7 +102,7 @@
 		<br>
 		<div id="table">
 			<div id="top">
-			    <input type="button" class="btn btn-warning" id="batchdelusers" value="批量删除">
+				<input type="button" class="btn btn-warning mv" id="batchdelpro" value="批量删除">
 				<input type="button" class="btn btn-warning" id="btn1" value="新增用户" onclick="addusers()">
 			</div>
 			<!--显示没有分页的用户信息-->
