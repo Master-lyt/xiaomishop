@@ -38,7 +38,6 @@ public class ProductTypeController {
         String typeName =  (String) map.get("typeName");
         ProductType productType = new ProductType(typeId, typeName);
         PageBean<ProductType> products = productTypeService.selectProductTypeByPage(productType, query);
-        List<ProductType> l = products.getList();
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("list", products.getList());
         resultMap.put("pageSize", query.getPs());
@@ -55,7 +54,8 @@ public class ProductTypeController {
     }
 
     @PostMapping("/addprotype")
-    public String addProductType(ProductType productType, Model model){
+    public String addProductType(ProductType productType){
+        System.out.println(productType);
         if(productTypeService.insertProductType(productType) != 1){
             //放到 ajax
             return "redirect:/toproducttypepage";
@@ -74,7 +74,7 @@ public class ProductTypeController {
         }
     }
 
-    @GetMapping("/toupdateprotypepage")
+    @GetMapping("/producttypemodify")
     public String toUpdateProductTypePage(int id, Model model){
         ProductType productType = productTypeService.selectProductTypeById(id);
         model.addAttribute("producttype",productType);
@@ -83,8 +83,9 @@ public class ProductTypeController {
 
     @PostMapping("/updateprotype")
     public String updateProductType(ProductType productType){
-        productTypeService.updateNonEmptyProductTypeById(productType);
-        return "forward:/toproducttypepage";
+        System.out.println("abc:" + productType);
+        productTypeService.updateProductTypeById(productType);
+        return "redirect:/toproducttypepage";
     }
 
 }

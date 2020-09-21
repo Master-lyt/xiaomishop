@@ -119,8 +119,9 @@
 						$("#producttypelist").append("<tr>"+
 								"<td>"+data.list[i].typeId+"</td>"+
 								"<td>"+data.list[i].typeName+"</td>"+
-								"<td><a href='#' onclick=location.href='${pageContext.request.contextPath}/producttypemodify?id="+data.list[i].typeId+"'>修改</a>"+
-								"<a  href='#' class='del'  name="+data.list[i].typeId+">删除 </a>"+
+								"<td>" +
+                                "<a href='#' id='upd' name="+data.list[i].typeId+">修改</a>"+
+								"<a href='#' class='del' name="+data.list[i].typeId+">删除</a>"+
 								"</td></tr>");
 					}
 				}
@@ -171,18 +172,19 @@
 		loadData(currentPage);
 	});
 
-	//修改函数
-	function modify(id) {
-		location.href = "${pageContext.request.contextPath}/toupdateprotypepage?id="+id;//get
-	}
-	//删除函数
 	$(document).ready(function(){
+        //删除函数
 		$(document).on("click",".del",function(){
 			var id = $(this).attr("name");
 			if(confirm("确定要删除吗？")){
-				location.href="${pageContext.request.contextPath}/delproducttype?id="+id;//get
+				location.href="${pageContext.request.contextPath}/delproducttype?id="+id;
 			}
 		});
+
+        $(document).on("click","#upd",function(){
+            var id = $(this).attr("name");
+            location.href = "${pageContext.request.contextPath}/producttypemodify?id="+id;
+        });
 	});
 
 </script>

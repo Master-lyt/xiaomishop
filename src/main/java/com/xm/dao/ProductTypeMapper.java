@@ -17,11 +17,11 @@ public interface ProductTypeMapper {
     int getProductTypeRowCount(ProductType productType);
     List<ProductType> selectProductType();
     ProductType selectProductTypeById(Integer id);
-    int insertProductType(@Param("value")ProductType value);
-    int insertNonEmptyProductType(@Param("value")ProductType value);
+    int insertProductType(ProductType value);
+    int insertNonEmptyProductType(ProductType value);
     int deleteProductTypeById(Integer id);
-    int updateProductTypeById(@Param("enti")ProductType enti);
-    int updateNonEmptyProductTypeById(@Param("enti")ProductType enti);
+    int updateProductTypeById(ProductType enti);
+    int updateNonEmptyProductTypeById(ProductType enti);
     List<ProductType> selectProductTypeByPage(@Param("productType") ProductType productType, @Param("query")Query query);
 
 }

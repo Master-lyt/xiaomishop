@@ -23,7 +23,7 @@
 					<table>
 						<tr>
 							<td class="one">类型名称</td>
-							<td><input type="text" name="name" class="two"></td>
+							<td><input type="text" name="typeName" class="two"></td>
 						</tr>
 						<!--错误提示-->
 						<tr class="three">

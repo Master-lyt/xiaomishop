@@ -54,6 +54,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public int updateProductTypeById(ProductType enti){
+        System.out.println(enti);
         return productTypeMapper.updateProductTypeById(enti);
     }
 

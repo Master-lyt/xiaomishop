@@ -7,11 +7,6 @@
         <result column="name" property="typeName" />
     </resultMap>
 
-    <sql id="producttype_Column">
-        producttype.id as id
-        ,producttype.name as name
-    </sql>
-
     <select id="getProductTypeRowCount" resultType="java.lang.Integer">
         select count(1) from producttype
         WHERE 1 = 1
@@ -19,24 +14,27 @@
             <bind name="name" value="'%' + typeName + '%'"/>
             And name LIKE #{name}
         </if>
+        <if test="typeId != null and typeId != -1">
+            AND id = #{typeId}
+        </if>
     </select>
 
     <select id="selectProductType" resultMap="result_ProductType_Map">
         select
-        <include refid="producttype_Column" />
+        id, name
         from producttype
     </select>
 
     <select id="selectProductTypeById" parameterType="java.lang.Integer" resultMap="result_ProductType_Map">
         select
-        <include refid="producttype_Column" />
+        id, name
         from producttype
-        where producttype.id = #{id}
+        where id = #{typeId}
     </select>
 
     <select id="selectProductTypeByPage" resultMap="result_ProductType_Map">
         select
-        <include refid="producttype_Column" />
+        id, name
         from producttype
         WHERE 1 = 1
         <if test="productType.typeName != null and productType.typeName != ''">
@@ -51,7 +49,7 @@
 
 
     <insert id="insertProductType" parameterType="com.xm.entity.ProductType">
-        insert into producttype(name) values(#{value.typeName})
+        insert into producttype(name) values(#{typeName})
     </insert>
 
     <insert id="insertNonEmptyProductType" parameterType="com.xm.entity.ProductType">
@@ -61,8 +59,8 @@
             <if test="name != null">name,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null"> #{value.typeId},</if>
-            <if test="name != null"> #{value.typeName},</if>
+            <if test="id != null"> #{typeId},</if>
+            <if test="name != null"> #{typeName},</if>
         </trim>
     </insert>
 
@@ -73,18 +71,18 @@
 
     <update id="updateProductTypeById" parameterType="com.xm.entity.ProductType">
         update producttype set
-            name=#{enti.typeName}
-        where id=#{enti.typeId}
+            name=#{typeName}
+        where id=#{typeId}
     </update>
 
     <update id="updateNonEmptyProductTypeById" parameterType="com.xm.entity.ProductType">
         update producttype
         <set>
-            <if test="name != null">
-                name=#{enti.typeName},
+            <if test="typeName != null and typeName != ''">
+                name=#{typeName}
             </if>
         </set>
-        where id=#{enti.typeId}
+        where id=#{typeId}
     </update>
 
 </mapper>

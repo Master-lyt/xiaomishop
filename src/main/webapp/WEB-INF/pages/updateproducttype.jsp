@@ -20,11 +20,11 @@
 			</div>
 			<div id="table">
 				<form action="${pageContext.request.contextPath}/updateprotype"  method="post" id="myform">
-				    <input type="hidden" name="id" class="two" value="${producttype.id}">
+				    <input type="hidden" name="typeId" class="two" value="${producttype.typeId}">
 					<table>
 						<tr>
 							<td class="one">类型名称</td>
-							<td><input type="text" name="name" class="two" value="${producttype.name}"></td>
+							<td><input type="text" name="typeName" class="two" value="${producttype.typeName}"></td>
 						</tr>
 						<!--错误提示-->
 						<tr class="three">
