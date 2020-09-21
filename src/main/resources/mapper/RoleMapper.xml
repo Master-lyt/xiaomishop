@@ -12,4 +12,7 @@
 		SELECT * FROM role WHERE id = #{id}
 	</select>
 
+    <select id="getAllRole" resultType="Role">
+        SELECT role.* FROM role
+    </select>
 </mapper>

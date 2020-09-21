@@ -13,6 +13,15 @@ public class User {
     private String udepartment;
     private String realname;
     private Integer roleid;
+    private String uimage;
+
+    public String getUimage() {
+        return uimage;
+    }
+
+    public void setUimage(String uimage) {
+        this.uimage = uimage;
+    }
 
     public Integer getUid() {
         return uid;

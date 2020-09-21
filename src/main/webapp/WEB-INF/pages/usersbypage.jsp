@@ -3,7 +3,6 @@
 <!-- 用于格式化时间 -->
 <%@taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-//该页面为修改过的页面
 <!DOCTYPE html>
 <html>
 
@@ -11,8 +10,8 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 	/*进入添加商品的页面*/
-    function addpro(){
-    	window.location.href="${pageContext.request.contextPath}/addproductpage";//get
+    function addusers(){
+    	window.location.href="${pageContext.request.contextPath}/adduserspage";//get
     }
 </script>
 
@@ -54,7 +53,7 @@
             }
 		});
 		
-		$("#batchdelpro").click(function(){
+		$("#batchdelusers").click(function(){
 			 var ids = new Array(); //定义一个数组存储id
 			 $("input[name='id']:checked").each(function() {
 			      ids.push($(this).val()); // 把值push进入数组里面
@@ -63,7 +62,7 @@
 			      alert('请选择至少一条记录删除');
 			      return;
 			 }
-			 location.href="${pageContext.request.contextPath}/batchdelproduct?ids="+ids;//get
+			 location.href="${pageContext.request.contextPath}/batchdelusers?ids="+ids;//get
 		});
 	});
 </script>
@@ -77,7 +76,7 @@
 	<c:if test="${sessionScope.users == null }">
 		<!--  没有登录，重新去登录页面登录  对应UsersController.java中的
 		@RequestMapping(value="/login",method=RequestMethod.GET)-->
-		<c:redirect url="login"/>
+		<c:redirect url="login"></c:redirect>
 	</c:if>
 	<div id="brall">
 		<div id="nav">
@@ -93,7 +92,7 @@
 							<c:if test="${role.id==roleid}">
 							selected="selected"
 							</c:if>>
-							${type.rolename}
+							${role.rolename}
 							</option>
 							</c:forEach>
 				        </select>
@@ -103,10 +102,10 @@
 		<br>
 		<div id="table">
 			<div id="top">
-			    <input type="button" class="btn btn-warning" id="batchdelpro" value="批量删除">
-				<input type="button" class="btn btn-warning" id="btn1" value="新增商品" onclick="addpro()">
+			    <input type="button" class="btn btn-warning" id="batchdelusers" value="批量删除">
+				<input type="button" class="btn btn-warning" id="btn1" value="新增用户" onclick="addusers()">
 			</div>
-			<!--显示没有分页的商品信息-->
+			<!--显示没有分页的用户信息-->
 			<div id="middle">
 				<table class="table table-bordered table-striped">
 					<tr>
@@ -116,30 +115,34 @@
 						<th>账号</th>
 						<th>部门</th>
 						<th>真实姓名</th>
-						<th>角色名称</th>
+						<th>角色</th>
 						<th>图片</th>
-						<th>日期</th>
 						<th>操作</th>
 					</tr>
 					<!-- pagebean分页实体 list属性为当前页的数据 -->
 					<c:forEach items="${pagebean.list}" var="u">
 						<tr>
 						    <td style="width: 50px;text-align: center;">
-						    	<input type="checkbox" name="id" value="${u.id}" style="width: 20px;height: 20px;">
+						    	<input type="checkbox" name="id" value="${u.uid}" style="width: 20px;height: 20px;">
 						    </td>
 							<td>${u.uname}</td>
 							<td>${u.udepartment}</td>
 							<td>${u.realname}</td>
 							<td>${u.rolename}</td>
 							<td><img width="55px" height="45px"
-								src="${pageContext.request.contextPath}/resources/image_big/${u.umage}"></td>
-
+								<c:if test="${u.uimage == '' || u.uimage == null}">
+									 src="${pageContext.request.contextPath}/resources/image_big/defualt.jpg"
+								</c:if>
+								<c:if test="${u.uimage != ''}">
+									 src="${pageContext.request.contextPath}/resources/image_big/${u.uimage}"
+								</c:if>>
+								</td>
 
 							<td>
 								<button type="button" class="btn btn-info myupdate"
-									onclick="pmodify(${u.id})">修改</button>
+									onclick="umodify(${u.uid})">修改</button>
 								<button type="button" class="btn btn-warning" id="mydel"
-									onclick="pdel(${u.id})">删除</button>
+									onclick="udel(${u.uid})">删除</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -186,17 +189,14 @@
 </body>
 <script type="text/javascript">
     /*删除商品  */
-    function pdel(id) {
+    function udel(id) {
         if (confirm("确定删除吗")) {
             location.href = "${pageContext.request.contextPath}/delusers?id="+id;//get
         }
     }
     /*修改商品  */
-    function pmodify(id) {
+    function umodify(id) {
         location.href = "${pageContext.request.contextPath}/getusersbyid?id="+id;
     }
-    function addpro() {
-		location.href = "${pageContext.request.contextPath}/adduserspage"
-	}
 </script>
 </html>

@@ -2,12 +2,16 @@ package com.xm.service.impl;
 
 import com.xm.dao.RoleMapper;
 import com.xm.dao.UserMapper;
+import com.xm.entity.PageBean;
+import com.xm.entity.ProductType;
+import com.xm.entity.Role;
 import com.xm.entity.User;
 import com.xm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author lz
@@ -35,4 +39,49 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUser(user);
     }
 
+    @Override
+    public PageBean<HashMap<String, Object>> getAllUsersByPage(String name, int typeId, int page, int pagesize) {
+        List<HashMap<String, Object>> list = userMapper.getAllUsersByPage(name, typeId, page, pagesize);
+
+        PageBean<HashMap<String, Object>> pb = new PageBean<>();
+        pb.setPage(page);
+        pb.setList(list);
+        int rowcount = rowcount(name, typeId);
+        if (rowcount % pagesize == 0) {
+            pb.setPages(rowcount / pagesize);
+        }else {
+            pb.setPages(rowcount / pagesize + 1);
+        }
+        return pb;
+    }
+
+
+    @Override
+    public int delUser(int id) {
+        return userMapper.delUser(id);
+    }
+
+    @Override
+    public int batchDelUsers(int[] ids) {
+        return userMapper.batchDelUser(ids);
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return userMapper.getUserById(id);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateUser(user);
+    }
+
+    @Override
+    public int addUser(User user) {
+        return userMapper.addUser(user);
+    }
+
+    private int rowcount(String name, int typeId){
+        return userMapper.getRowcount(name, typeId);
+    }
 }

@@ -24,5 +24,58 @@
 		WHERE u.uname = #{uname} AND u.upass = #{upass}
 	</select>
 
+	<select id="getAllUsersByPage" resultType="java.util.HashMap">
+		<bind name="offset" value="page*pagesize-pagesize"/>
+		SELECT users.*, role.rolename AS rolename
+		FROM users, role
+		WHERE users.roleid = role.id
+		<if test=" name != null and name != '' ">
+			<bind name="name" value=" '%' + name + '%' "/>
+			AND users.uname like #{name}
+		</if>
+		<if test=" typeId != null and typeId != -1 ">
+			AND users.roleid = #{typeId}
+		</if>
+		LIMIT #{offset},#{pagesize}
+	</select>
 
+	<select id="getRowcount" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM users u,role ur
+		WHERE u.roleid = ur.id
+		<if test=" name != null and name != '' ">
+			<bind name="name" value=" '%' + name + '%' "/>
+			AND u.uname like #{name}
+		</if>
+		<if test=" typeId != null and typeId != -1 ">
+			AND u.roleid = #{typeId}
+		</if>
+	</select>
+
+
+	<delete id="delUser">
+		DELETE FROM users WHERE uid = #{id}
+	</delete>
+
+	<delete id="batchDelUser" parameterType="java.lang.Integer">
+		DELETE FROM users WHERE uid in
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="getUserById" resultType="User">
+		SELECT * FROM users WHERE uid =#{id}
+	</select>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE users SET uname = #{uname}, udepartment = #{udepartment}, realname = #{realname},
+		                 roleid = #{roleid}, uimage = #{uimage}
+		WHERE uid = #{uid}
+	</update>
+
+	<insert id="addUser" parameterType="User">
+		INSERT INTO users (uname, upass, udepartment, realname, roleid, uimage)
+			VALUE (#{uname}, #{upass}, #{udepartment}, #{realname}, #{roleid}, #{uimage})
+	</insert>
 </mapper>

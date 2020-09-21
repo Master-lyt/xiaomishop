@@ -1,6 +1,9 @@
 package com.xm.controller;
 
+import com.xm.entity.PageBean;
+import com.xm.entity.Role;
 import com.xm.entity.User;
+import com.xm.service.RoleService;
 import com.xm.service.UserService;
 import com.xm.untils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -24,6 +28,9 @@ public class UserController {
     //使用spring 注入@Autowired 完成对业务层的注入
     @Autowired
     private UserService usersService;
+
+    @Autowired
+    private RoleService roleService;
 
     //实现加入后台的登录页面/WEB-INF/jsp/login.jsp
     //@RequestMapping(value="/login",method=RequestMethod.GET)
@@ -64,5 +71,55 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/getusersbypage")
+    public String getUsersByPage(@RequestParam(name = "uname", defaultValue = "") String name,
+                                 @RequestParam(name = "roleid", defaultValue = "-1") int typeId,
+                                 @RequestParam(name = "page", defaultValue = "1") int page, Model model){
+        int pagesize = 5;
+        PageBean<HashMap<String, Object>> users = usersService.getAllUsersByPage(name, typeId, page, pagesize);
+        model.addAttribute("pagebean", users);
+        model.addAttribute("rolelist", roleService.getAllRole());
+        model.addAttribute("name", name);
+        model.addAttribute("roleid", typeId);
+        return "usersbypage";
+    }
 
+    @GetMapping("delusers")
+    public String delUser(@RequestParam(name = "id") int id){
+        usersService.delUser(id);
+        return "redirect:/getusersbypage";
+    }
+
+    @GetMapping("batchdelusers")
+    public String batchDelUsers(int[] ids){
+        usersService.batchDelUsers(ids);
+        return "redirect:/getusersbypage";
+    }
+
+    @GetMapping("getusersbyid")
+    public String getUserById(int id, Model model){
+        User user = usersService.getUserById(id);
+        model.addAttribute("users", user);
+        model.addAttribute("rolelist", roleService.getAllRole());
+        return "updateusers";
+    }
+
+    @PostMapping("/updateusers")
+    public String updateUser(User user){
+        usersService.updateUser(user);
+        return "redirect:/getusersbypage";
+    }
+
+    @GetMapping("adduserspage")
+    public String toAddUserPage(Model model){
+        model.addAttribute("rolelist", roleService.getAllRole());
+        return "addusers";
+    }
+
+    @PostMapping("addusers")
+    public String addUser(User user){
+        user.setUpass(MD5Util.getMd5Str(user.getUpass()));
+        usersService.addUser(user);
+        return "redirect:/getusersbypage";
+    }
 }
