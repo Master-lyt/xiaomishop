@@ -63,8 +63,7 @@ public class ProductServiceImpl implements ProductService {
     //增加商品
     @Override
     public int addProduct(Product product) {
-        productMapper.addProduct(product);
-        return 0;
+        return productMapper.addProduct(product);
     }
 
     @Override

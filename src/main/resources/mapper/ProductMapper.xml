@@ -69,6 +69,8 @@
     <insert id="addProduct" parameterType="Product">
         INSERT INTO product (name, content, price, image, number, typeid, date)
             VALUE (#{name}, #{content}, #{price}, #{image}, #{number}, #{typeid}, #{date})
+
+            <!--更简便的办法 insert into product value(null(-1),#{name},#{content},#{price},#{image},#{number},#{typeid},#{date})-->
     </insert>
 
 	<update id="updateProduct" parameterType="Product">
