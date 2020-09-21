@@ -84,19 +84,29 @@
 		</div>
 		<div id="condition" style="text-align: center">
 			<form action="${pageContext.request.contextPath}/getproductbypage" id="myform">
-				商品名称：<input name="name" id="name" value="${name }">
-				商品类型:<select name="typeid">
+				<div class="searchTop">
+					<div>
+						<label for="name">商品名称：</label>
+						<input name="name" id="name" value="${name }"placeholder="请输入商品名称"  class="form-control indvidiv">
+					</div>
+					<div class="onetop">
+						<label for="typeid">商品类型：</label>
+						<select name="typeid" id="typeid" class="form-control indvidiv">
 							<option value="-1">请选择</option>
 							<c:forEach items="${ptlist}" var="type">
-							<option value="${type.id}"
-							<c:if test="${type.id==typeid}">
-							selected="selected"
-							</c:if>>
-							${type.name}
-							</option>
+								<option value="${type.id}"
+										<c:if test="${type.id==typeid}">
+											selected="selected"
+										</c:if>>
+										${type.name}
+								</option>
 							</c:forEach>
-				        </select>
-				<input type="submit" value="查询">
+						</select>
+					</div>
+					<div class="onetop">
+						<button type="submit" class="btn btn-primary">查询</button>
+					</div>
+				</div>
 			</form>
 		</div>
 		<br>
@@ -108,42 +118,46 @@
 			<!--显示没有分页的商品信息-->
 			<div id="middle">
 				<table class="table table-bordered table-striped">
-					<tr>
-					    <th style="width: 50px;text-align: center;">
-					    	<input type="checkbox" style="width: 20px;height: 20px;" id="checkAll">
-					    </th>
-						<th>商品名称</th>
-						<th>商品介绍</th>
-						<th>定价（元）</th>
-						<th>商品图片</th>
-						<th>商品数量</th>
-						<th>日期</th>
-						<th>商品类型</th>
-						<th>操作</th>
-					</tr>
-					<!-- pagebean分页实体 list属性为当前页的数据 -->
-					<c:forEach items="${pagebean.list}" var="p">
+					<thead>
 						<tr>
-						    <td style="width: 50px;text-align: center;">
-						    	<input type="checkbox" name="id" value="${p.id}" style="width: 20px;height: 20px;">
-						    </td>
-							<td>${p.name}</td>
-							<td>${p.content}</td>
-							<td>${p.price}</td>
-							<td><img width="55px" height="45px"
-								src="${pageContext.request.contextPath}/resources/image_big/${p.image}"></td>
-							<td>${p.number}</td>
-							<td><fmt:formatDate value="${p.date}" pattern="yyyy-MM-dd hh:mm:ss"/>
-							</td>
-							<td>${p.typename}</td>
-							<td>
-								<button type="button" class="btn btn-info myupdate"
-									onclick="pmodify(${p.id})">修改</button>
-								<button type="button" class="btn btn-warning" id="mydel"
-									onclick="pdel(${p.id})">删除</button>
-							</td>
+							<th style="width: 50px;text-align: center;" scope="col">
+								<input type="checkbox" style="width: 20px;height: 20px;" id="checkAll">
+							</th>
+							<th scope="col">商品名称</th>
+							<th scope="col">商品介绍</th>
+							<th scope="col">定价（元）</th>
+							<th scope="col">商品图片</th>
+							<th scope="col">商品数量</th>
+							<th scope="col">日期</th>
+							<th scope="col">商品类型</th>
+							<th scope="col">操作</th>
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody>
+						<!-- pagebean分页实体 list属性为当前页的数据 -->
+						<c:forEach items="${pagebean.list}" var="p">
+							<tr>
+								<th style="width: 50px;text-align: center;" scope="row">
+									<input type="checkbox" name="id" value="${p.id}" style="width: 20px;height: 20px;">
+								</th>
+								<td>${p.name}</td>
+								<td>${p.content}</td>
+								<td>${p.price}</td>
+								<td><img width="55px" height="45px"
+										 src="${pageContext.request.contextPath}/resources/image_big/${p.image}"></td>
+								<td>${p.number}</td>
+								<td><fmt:formatDate value="${p.date}" pattern="yyyy-MM-dd hh:mm:ss"/>
+								</td>
+								<td>${p.typename}</td>
+								<td>
+									<button type="button" class="btn btn-info myupdate"
+											onclick="pmodify(${p.id})">修改</button>
+									<button type="button" class="btn btn-warning" id="mydel"
+											onclick="pdel(${p.id})">删除</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 				<!--分页栏-->
 				<div class="footNum">

@@ -4,20 +4,19 @@
 			}
 			
 			#brall {
-				width: 1235px;
+				width: 100%;
 				height: 700px;
 				/*border: 1px solid red;*/
 				background-color: #ECECEC;
-				border: 1px solid black;
+				position: relative;
 			}
 			
 			#brall #nav {
-				margin-top: 20px;
 				width: 1170px;
 				height: 50px;
 				line-height: 50px;
 				border: 1px solid #ECECEC;
-				margin: 0px aut;
+				margin: 0px auto;
 				margin-left: 35px;
 			}
 			
@@ -57,4 +56,25 @@
 			#brall #table #eng {
 				width: 80px;
 				height: 110px;
+			}
+
+			.indvidiv{
+				width: 200px;
+				display: inline-block;
+			}
+			.searchTop{
+				height: 40px;
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-end;
+				margin-right: 80px;
+			}
+			.onetop{
+				margin-left: 20px;
+			}
+
+			#condition{
+				width: 100%;
+				position: relative;
+				text-align: right;
 			}

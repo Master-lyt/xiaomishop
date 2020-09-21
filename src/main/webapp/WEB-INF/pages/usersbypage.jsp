@@ -84,19 +84,29 @@
 		</div>
 		<div id="condition" style="text-align: center">
 			<form action="${pageContext.request.contextPath}/getusersbypage" id="myform">
-				用户名称：<input name="uname" id="uname" value="${uname }">
-				角色类型:<select name="roleid">
+				<div class="searchTop">
+					<div>
+						<label for="name">用户名称：</label>
+						<input name="uname" id="name" value="${name }"placeholder="请输入用户名称"  class="form-control indvidiv">
+					</div>
+					<div class="onetop">
+						<label for="typeid">角色类型：</label>
+						<select name="roleid" id="typeid" class="form-control indvidiv">
 							<option value="-1">请选择</option>
 							<c:forEach items="${rolelist}" var="role">
-							<option value="${role.id}"
-							<c:if test="${role.id==roleid}">
-							selected="selected"
-							</c:if>>
-							${role.rolename}
-							</option>
+								<option value="${role.id}"
+										<c:if test="${role.id==roleid}">
+											selected="selected"
+										</c:if>>
+										${role.rolename}
+								</option>
 							</c:forEach>
-				        </select>
-				<input type="submit" value="查询">
+						</select>
+					</div>
+					<div class="onetop">
+						<button type="submit" class="btn btn-primary">查询</button>
+					</div>
+				</div>
 			</form>
 		</div>
 		<br>
@@ -108,23 +118,26 @@
 			<!--显示没有分页的用户信息-->
 			<div id="middle">
 				<table class="table table-bordered table-striped">
+					<thead>
 					<tr>
-					    <th style="width: 50px;text-align: center;">
+					    <th style="width: 50px;text-align: center;" scope="col">
 					    	<input type="checkbox" style="width: 20px;height: 20px;" id="checkAll">
 					    </th>
-						<th>账号</th>
-						<th>部门</th>
-						<th>真实姓名</th>
-						<th>角色</th>
-						<th>图片</th>
-						<th>操作</th>
+						<th scope="col">账号</th>
+						<th scope="col">部门</th>
+						<th scope="col">真实姓名</th>
+						<th scope="col">角色</th>
+						<th scope="col">图片</th>
+						<th scope="col">操作</th>
 					</tr>
+					</thead>
+					<tbody>
 					<!-- pagebean分页实体 list属性为当前页的数据 -->
 					<c:forEach items="${pagebean.list}" var="u">
 						<tr>
-						    <td style="width: 50px;text-align: center;">
+						    <th style="width: 50px;text-align: center;" scope="row">
 						    	<input type="checkbox" name="id" value="${u.uid}" style="width: 20px;height: 20px;">
-						    </td>
+						    </th>
 							<td>${u.uname}</td>
 							<td>${u.udepartment}</td>
 							<td>${u.realname}</td>
@@ -146,6 +159,7 @@
 							</td>
 						</tr>
 					</c:forEach>
+					</tbody>
 				</table>
 				<!--分页栏-->
 				<div class="footNum">

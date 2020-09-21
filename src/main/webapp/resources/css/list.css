@@ -539,6 +539,7 @@ a.add:hover{
 .footNum{
 	height: 30px;
 	margin:15px 0;
+	padding-right: 14px;
 }
 .footNum ul{
 	float: right;
