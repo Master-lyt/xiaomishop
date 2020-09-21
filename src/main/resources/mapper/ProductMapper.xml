@@ -83,4 +83,13 @@
 	<select id="getProductById" resultType="Product" parameterType="java.lang.Integer">
 		SELECT * FROM product WHERE id = #{id}
 	</select>
+
+	<select id="getProductFiveList" resultType="Product">
+	select
+	*
+	from product
+	order by date desc
+	limit 0,5
+	</select>
+
 </mapper>

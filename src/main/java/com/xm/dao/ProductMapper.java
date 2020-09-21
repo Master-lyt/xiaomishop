@@ -32,4 +32,6 @@ public interface ProductMapper {
     int updateProduct(Product product);
 
     Product getProductById(@Param("id") int id);
+
+    List<Product> getProductFiveList();
 }

@@ -181,6 +181,8 @@
 	<div style="width: 1200px;margin: 0 auto;font-size:20px;margin-bottom: 5px;">小米手机
 	</div>
 	<div style="width: 1200px;margin: 0 auto;">
+
+		<!--只显示前五条数据，对应的SQL为前五条数据-->
 		<c:forEach items="${ products}" var="p">
 	    	<div style="width: 238px;height: 300px;float: left;">
 	    		<div style="margin-left: 30px;margin-top: 9px;">

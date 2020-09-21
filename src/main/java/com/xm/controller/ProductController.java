@@ -139,4 +139,16 @@ public class ProductController {
         productService.updateProduct(product);
         return "redirect:/getproductbypage";
     }
+
+    //获取商品详情
+    @GetMapping("/getproductdetail")
+    public String getProductDetail(int id,Model model){
+
+        Product product=productService.getProductById(id);
+        model.addAttribute("products",product);
+
+
+        return "productdetail";
+
+    }
 }
