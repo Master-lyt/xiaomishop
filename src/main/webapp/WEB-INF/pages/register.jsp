@@ -69,19 +69,36 @@
 	}
 	
 	//检查用户名称是否存在
+	//如果查到了返回该用户已经存在
 	function checkCname(){
- 		$("#info").html("");
+ 		$("#info").html("");//label
+		//账号获取输入
 		var cname = $("#cname").val();
 		$.ajax({
 			   type: "POST",
 			   url: "${pageContext.request.contextPath}/docheckcname",
 			   data: "cname="+cname,
 			   dataType: "json",
-			   success: function(msg){
-			     $("#info").html(msg.info);
+			   success: function(msg){//从后台返回json查看是否存在
+			     $("#info").html(msg.info);//该用户是否存在
 			   }
 		});
 	};
+
+	/*function checkCname(){
+	* 	$("#info").html("");
+	* var cname=$("#canme").val();
+	* 	$.ajax({
+	* 		type:"POST",
+	* 		url:{pageContext.request.contenPath}/docheckcname,
+			date:"cname="+cname,
+			dataType:"json",
+			successs:function(msg){
+			$("#info").html(msg.info);
+			* }
+			});
+			* };
+	* */
 	
 </script>
 

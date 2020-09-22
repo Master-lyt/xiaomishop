@@ -26,6 +26,8 @@ public class IndexController {
 
         List<Product> products=productService.getProductFiveList();
         model.addAttribute("products",products);
+
+
         return "shop";
 
     }
