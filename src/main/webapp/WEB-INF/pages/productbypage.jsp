@@ -87,18 +87,18 @@
 				<div class="searchTop">
 					<div>
 						<label for="name">商品名称：</label>
-						<input name="name" id="name" value="${name }"placeholder="请输入商品名称"  class="form-control indvidiv">
+						<input name="typeName" id="name" value="${typeName }"placeholder="请输入商品名称"  class="form-control indvidiv">
 					</div>
 					<div class="onetop">
 						<label for="typeid">商品类型：</label>
-						<select name="typeid" id="typeid" class="form-control indvidiv">
+						<select name="typeId" id="typeId" class="form-control indvidiv">
 							<option value="-1">请选择</option>
 							<c:forEach items="${ptlist}" var="type">
-								<option value="${type.id}"
-										<c:if test="${type.id==typeid}">
+								<option value="${type.typeId}"
+										<c:if test="${type.typeId==typeid}">
 											selected="selected"
 										</c:if>>
-										${type.name}
+										${type.typeName}
 								</option>
 							</c:forEach>
 						</select>

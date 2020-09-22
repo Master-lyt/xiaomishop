@@ -120,8 +120,8 @@
 								"<td>"+data.list[i].typeId+"</td>"+
 								"<td>"+data.list[i].typeName+"</td>"+
 								"<td>" +
-                                "<a href='#' id='upd' name="+data.list[i].typeId+">修改</a>"+
-								"<a href='#' class='del' name="+data.list[i].typeId+">删除</a>"+
+                                "<a href='#' type='button' class='upd btn btn-info' name="+data.list[i].typeId+">修改</a>&nbsp;&nbsp;"+
+								"<a href='#' type='button' class='del btn btn-warning' name="+data.list[i].typeId+">删除</a>"+
 								"</td></tr>");
 					}
 				}
@@ -181,7 +181,7 @@
 			}
 		});
 
-        $(document).on("click","#upd",function(){
+        $(document).on("click",".upd",function(){
             var id = $(this).attr("name");
             location.href = "${pageContext.request.contextPath}/producttypemodify?id="+id;
         });
