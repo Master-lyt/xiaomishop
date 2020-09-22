@@ -1,7 +1,6 @@
 package com.xm.dao;
 
 import com.xm.entity.ProductType;
-import com.xm.form.ProductTypeForm;
 import com.xm.untils.Query;
 import org.apache.ibatis.annotations.Param;
 

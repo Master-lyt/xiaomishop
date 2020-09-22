@@ -3,16 +3,17 @@ package com.xm.controller;
 
 import com.xm.entity.PageBean;
 import com.xm.entity.ProductType;
-import com.xm.form.ProductTypeForm;
 import com.xm.service.ProductTypeService;
 import com.xm.untils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /*
@@ -55,7 +56,6 @@ public class ProductTypeController {
 
     @PostMapping("/addprotype")
     public String addProductType(ProductType productType){
-        System.out.println(productType);
         if(productTypeService.insertProductType(productType) != 1){
             //放到 ajax
             return "redirect:/toproducttypepage";
@@ -83,7 +83,6 @@ public class ProductTypeController {
 
     @PostMapping("/updateprotype")
     public String updateProductType(ProductType productType){
-        System.out.println("abc:" + productType);
         productTypeService.updateProductTypeById(productType);
         return "redirect:/toproducttypepage";
     }

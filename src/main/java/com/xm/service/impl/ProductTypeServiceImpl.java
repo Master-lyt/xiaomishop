@@ -3,7 +3,6 @@ package com.xm.service.impl;
 import com.xm.dao.ProductTypeMapper;
 import com.xm.entity.PageBean;
 import com.xm.entity.ProductType;
-import com.xm.form.ProductTypeForm;
 import com.xm.service.ProductTypeService;
 import com.xm.untils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,6 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public int updateProductTypeById(ProductType enti){
-        System.out.println(enti);
         return productTypeMapper.updateProductTypeById(enti);
     }
 

@@ -2,7 +2,6 @@ package com.xm.service;
 
 import com.xm.entity.PageBean;
 import com.xm.entity.ProductType;
-import com.xm.form.ProductTypeForm;
 import com.xm.untils.Query;
 
 import java.util.List;
