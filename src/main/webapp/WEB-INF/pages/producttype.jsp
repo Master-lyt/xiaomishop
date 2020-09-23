@@ -50,7 +50,7 @@
 	<br>
 	<div id="table">
 		<div id="top">
-			<input type="button" class="btn btn-warning" id="btn1" value="新增商品类型" onclick="addproducttypepage()">
+			<button type="button" class="btn btn-warning" id="btn1" data-toggle="modal" data-target="#addModal">新增商品类型</button>
 		</div>
 		<!--显示没有分页的商品信息-->
 		<div id="middle">
@@ -70,11 +70,39 @@
 		</div>
 	</div>
 </div>
+<!-- 添加/修改 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<form id="addForm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">商品类型管理>商品类型</h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" name="typeId" id="typeIdA" value="">
+					<div class="row cl">
+						<label class="form-label col-xs-3">类型名称：</label>
+						<div class="formControls col-xs-6">
+							<input type="text" class="input-text" placeholder="请输入想要添加的商品名称"
+								   name="typeName" id="typeNameA" autocomplete="off">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="aSubmit">确定</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 </body>
 <script type="text/javascript">
 	//分页的js代码
 	//第一次进入页面默认显示第一页的数据
 	var currentPage = 1;
+	var sPage = 1;
 
 	//载入 (默认加载全部) 默认第一次为currentPage为 1
 	loadData(currentPage);
@@ -97,7 +125,7 @@
 		//在springmvc中使用Map集合接受参数，还需要注解@RequestParam
 		//数据返回的对象名称为data,名称可以自定义，返回的格式有时json
 		$.ajax({
-			type:"GET",
+			type:"POST",
 			url:"${pageContext.request.contextPath}/producttype_list_ajax",
 			data:{pn:currentPage,typeId:tid,typeName:tname},
 			dataType:"json",
@@ -126,6 +154,7 @@
 	}
 
 	function goToPage(n){
+		sPage = n;
 		loadData(n);
 	}
 
@@ -161,6 +190,11 @@
 		});
 	}
 
+	//置空类别名称
+	$("#btn1").bind("click", function () {
+		$("#typeNameA").val("");
+	});
+
 	//查询按钮的提交
 	$("#search").bind("click",function(){
 		loadData(currentPage);
@@ -171,13 +205,65 @@
 		$(document).on("click",".del",function(){
 			var id = $(this).attr("name");
 			if(confirm("确定要删除吗？")){
-				location.href="${pageContext.request.contextPath}/delproducttype?id="+id;
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/delproducttype",
+					data:{id:id},
+					dataType:"json",
+					success:function (data) {
+						alert(data.message);
+						if(sPage > data.lastPage){
+							sPage = data.lastPage;
+						}
+						loadData(sPage);
+					}
+				});
 			}
 		});
 
+		//添加/修改
+		$(document).on("click","#aSubmit",function(){
+			var url = "${pageContext.request.contextPath}/updateprotype";
+			var typeId = $("#typeIdA").val();
+			if(typeId == ''){
+				typeId = -1;
+				url = "${pageContext.request.contextPath}/addprotype";
+			}
+			var typeName = $("#typeNameA").val();
+			$.ajax({
+				type:"POST",
+				url:url,
+				data:{typeId:typeId, typeName:typeName},
+				dataType:"json",
+				success:function (data) {
+					$("#addModal").modal("hide");
+					if(typeId == -1){
+						sPage = data.lastPage;
+					}
+					$("#typeIdA").val("");
+					$("#typeNameA").val("");
+					setTimeout(function () {
+						alert(data.message);
+						loadData(sPage);
+					}, 500);
+				}
+			});
+		});
+
+		//取修改信息
         $(document).on("click",".upd",function(){
-            var id = $(this).attr("name");
-            location.href = "${pageContext.request.contextPath}/producttypemodify?id="+id;
+			var id = $(this).attr("name");
+			$.ajax({
+				type:"GET",
+				url:"${pageContext.request.contextPath}/producttypemodify",
+				data:{id:id},
+				dataType:"json",
+				success:function (data) {
+					$("#addModal").modal("show");
+					$("#typeIdA").val(data.productType.typeId);
+					$("#typeNameA").val(data.productType.typeName);
+				}
+			});
         });
 	});
 

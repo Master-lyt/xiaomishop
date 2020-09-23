@@ -7,7 +7,6 @@ import com.xm.service.ProductTypeService;
 import com.xm.untils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +29,7 @@ public class ProductTypeController {
         return "producttype";
     }
 
-    @GetMapping("/producttype_list_ajax")
+    @PostMapping("/producttype_list_ajax")
     @ResponseBody
     public Map<String, Object> getAllProductTypeByPage(@RequestParam Map<String, Object> map){
         Integer pn = Integer.parseInt((String) map.get("pn"));
@@ -49,42 +48,71 @@ public class ProductTypeController {
         return resultMap;
     }
 
-    @GetMapping("/addproducttypepage")
-    public String toAddProductTypePage(){
-        return "addproducttype";
-    }
-
     @PostMapping("/addprotype")
-    public String addProductType(ProductType productType){
+    @ResponseBody
+    public Map<String, Object> addProductType(ProductType productType){
+        Map<String, Object> map = new HashMap<>();
+        String message = "";
         if(productTypeService.insertProductType(productType) != 1){
-            //放到 ajax
-            return "redirect:/toproducttypepage";
+            message = "添加成功！";
+
         }else {
-            return "redirect:/toproducttypepage";
+            message = "添加失败！";
         }
+        map.put("message", message);
+        map.put("lastPage", getLastPage());
+        return map;
     }
 
     @GetMapping("/delproducttype")
-    public String deleteProductType(int id){
+    @ResponseBody
+    public Map<String, Object> deleteProductType(int id){
+        Map<String, Object> map = new HashMap<>();
+        String message = "";
         if(productTypeService.deleteProductTypeById(id) != 1){
-            //放到 ajax
-            return "redirect:/toproducttypepage";
+            message = "删除成功！";
+
         }else {
-            return "redirect:/toproducttypepage";
+            message = "删除失败！";
         }
+        map.put("message", message);
+        map.put("lastPage", getLastPage());
+        return map;
     }
 
     @GetMapping("/producttypemodify")
-    public String toUpdateProductTypePage(int id, Model model){
+    @ResponseBody
+    public Map<String, Object> toUpdateProductTypePage(int id){
+        Map<String, Object> map = new HashMap<>();
         ProductType productType = productTypeService.selectProductTypeById(id);
-        model.addAttribute("producttype",productType);
-        return "updateproducttype";
+        map.put("productType", productType);
+        return map;
     }
 
     @PostMapping("/updateprotype")
-    public String updateProductType(ProductType productType){
-        productTypeService.updateProductTypeById(productType);
-        return "redirect:/toproducttypepage";
+    @ResponseBody
+    public Map<String, Object> updateProductType(ProductType productType){
+        Map<String, Object> map = new HashMap<>();
+        String message = "";
+        if(productTypeService.updateProductTypeById(productType) != 1){
+            message = "修改成功！";
+
+        }else {
+            message = "修改失败！";
+        }
+        map.put("message", message);
+        return map;
+    }
+
+    private Integer getLastPage(){
+        int count = productTypeService.getProductTypeRowCount(new ProductType());
+        int lastPage = 1;
+        if (count % 5 == 0) {
+            lastPage = count / 5;
+        }else {
+            lastPage = count / 5 + 1;
+        }
+        return lastPage;
     }
 
 }
