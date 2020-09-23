@@ -126,7 +126,7 @@ hr {border: 1px solid #EDEDED;}
 	
 	//添加购物车
 	function addcarshop(){
-		if("${customer}" == ''){
+		if("${sessionScope.customer}" == ''){
 			alert("你还没有登录，请先登录");
 			document.getElementById("addcar").setAttribute("href","${pageContext.request.contextPath}/tocustomerloginpage");
 		}else{
