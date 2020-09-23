@@ -3,6 +3,7 @@ package com.xm.dao;
 import com.xm.entity.ProductType;
 import com.xm.untils.Query;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @date 2020/9/16 - 16:05
  * @function
  */
+@Repository
 public interface ProductTypeMapper {
 
     int getProductTypeRowCount(ProductType productType);

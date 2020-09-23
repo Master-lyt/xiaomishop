@@ -2,21 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace配置为数据访问层的接口的 包名.接口名称  -->
 <mapper namespace="com.xm.dao.CustomerMapper">
-    <!--验证用户名密码-->
-    <select id="getCustomerByCname" resultType="customer">
-        select * from customer where  cname=#{cname}
 
+    <resultMap id="result_Customer_Map" type="com.xm.entity.Customer">
+        <id column="cid" property="cid" />
+        <result column="cname" property="cname" />
+        <result column="cpass" property="cpass" />
+        <result column="csex" property="csex" />
+        <result column="cage" property="cage" />
+        <result column="realname" property="realname" />
+        <result column="phone" property="phone" />
+    </resultMap>
+
+    <!--验证用户名密码-->
+    <select id="getCustomerByCname" resultMap="result_Customer_Map">
+        select * from customer where  cname=#{cname}
     </select>
 
     <!--用户登录-->
-    <select id="login" resultType="customer">
+    <select id="login" resultMap="result_Customer_Map">
         select
-        *
+        cid, cname, cpass, csex, cage, realname, phone
         from customer
         where cname=#{cname} AND cpass=#{cpass}
     </select>
 
-    <insert id="registerCustomer" parameterType="customer">
+    <insert id="registerCustomer" parameterType="com.xm.entity.Customer">
         insert into customer(cname,cpass) values(#{cname},#{cpass})
     </insert>
 </mapper>

@@ -27,6 +27,7 @@ public class CustomerController {
 
     @Autowired
     private ProductService productService;
+
     //进入客户注册页面,用户进行注册
     @GetMapping("/toregisterpage")
     public String toRePage(){
@@ -82,14 +83,12 @@ public class CustomerController {
         if(cname.equals("admin") && cpass.equals("admin")){
             url = "redirect:/login";
         }else {
-            Customer customer=customerService.login(cname, MD5Util.getMd5Str(cpass));
+            Customer customer = customerService.login(cname, MD5Util.getMd5Str(cpass));
             session.setAttribute("customer",customer);
         }
 
         return url;
     }
-
-
 
     //首页显示前五条数据
     @GetMapping("/index")

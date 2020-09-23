@@ -14,13 +14,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerByCname(String cname) {
-
         return customerMapper.getCustomerByCname(cname);
     }
 
     @Override
     public Customer login(String cname,String cpass){
-
         return customerMapper.login(cname,cpass);
     }
 
