@@ -1,4 +1,4 @@
-<%@ page language="java" errorPage="/err.jsp" import="java.util.*" pageEncoding="UTF-8"%>
+<%--<%@ page language="java" errorPage="/err.jsp" import="java.util.*" pageEncoding="UTF-8"%>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -30,7 +30,7 @@
 			<div class="right_login fr clearfix">
 				<c:if test="${empty customer }">
 <%--					tocustomerloginpage--%>
-					<a href="${pageContext.request.contextPath}/tocustomerloginpage">登录</a>
+					<a href="${pageContext.request.contextPath}/login">登录</a>
 					<span class="sep">|</span>
 				</c:if>
 				<c:if test="${not empty customer }">

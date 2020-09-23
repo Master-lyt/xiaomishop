@@ -123,19 +123,23 @@ public class ProductController {
     public String getProductById(int id, Model model){
         Product product = productService.getProductById(id);
         List<ProductType> plist = productTypeService.selectProductType();
+        System.out.println("p:" + product);
         model.addAttribute("product", product);
         model.addAttribute("ptlist", plist);
         return "updateproduct";
     }
 
     @PostMapping("/updateproduct")
-    public String updateProduct(Product product){
+    public String updateProduct(Product product, String upimage){
         Date date = new Date();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = sdf.format(date);
         Timestamp ts = Timestamp.valueOf(dateStr);
         product.setDate(ts);
-        System.out.println(product.toString());
+        System.out.println("pro:" + product + ", upimage:" + upimage);
+        if(!upimage.equals(product.getImage())){
+            product.setImage(upimage);
+        }
         productService.updateProduct(product);
         return "redirect:/getproductbypage";
     }

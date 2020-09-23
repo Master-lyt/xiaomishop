@@ -11,12 +11,6 @@
 			window.location.href="${pageContext.request.contextPath}/addproducttypepage";//get
 		}
 	</script>
-	<style>
-		.i{
-			display: inline;
-			margin-left: 160px;
-		}
-	</style>
 
 	<link rel="stylesheet"
 		  href="${pageContext.request.contextPath}/resources/css/reset.css">

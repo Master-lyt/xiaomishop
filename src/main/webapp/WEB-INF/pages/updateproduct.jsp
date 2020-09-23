@@ -129,10 +129,10 @@
 						<!-- 要显示当前商品的商品类型  ，还可以修改重新选择别的商品类型 -->
 						<select name="typeid">
 								<c:forEach items="${ptlist}" var="type">
-									<option value="${type.id}"
-										<c:if test="${type.id==product.typeid}">
+									<option value="${type.typeId}"
+										<c:if test="${type.typeId == product.typeid}">
 													selected="selected"
-												</c:if>>${type.name}</option>
+												</c:if>>${type.typeName}</option>
 
 								</c:forEach>
 						</select>

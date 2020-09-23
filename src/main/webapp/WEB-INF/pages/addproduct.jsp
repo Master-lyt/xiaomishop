@@ -121,7 +121,7 @@
 						<td class="one">类别</td>
 						<td><select name="typeid">
 								<c:forEach items="${ptlist}" var="type">
-									<option value="${type.id}">${type.name}</option>
+									<option value="${type.typeId}">${type.typeName}</option>
 								</c:forEach>
 						</select></td>
 					</tr>
