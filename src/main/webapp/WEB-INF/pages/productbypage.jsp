@@ -8,29 +8,33 @@
 
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript">
-	/*进入添加商品的页面*/
-    function addpro(){
-    	window.location.href="${pageContext.request.contextPath}/addproductpage";//get
-    }
-</script>
+	<script type="text/javascript">
+		/*进入添加商品的页面*/
+		function addpro(){
+			window.location.href="${pageContext.request.contextPath}/addproductpage";//get
+		}
+	</script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/reset.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/base.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/list.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bright.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/addBook.css" />
-<script type="text/javascript"
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/reset.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/base.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/list.css">
+	<link rel="stylesheet"
+		  href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/bright.css" />
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/addBook.css" />
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/kkpage.css" />
+	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	<script type="text/javascript"
+			src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/kkpage.js"></script>
 <title></title>
 <style type="text/css">
 	#batchdelpro {
@@ -83,7 +87,7 @@
 			<p>商品管理>商品列表</p>
 		</div>
 		<div id="condition" style="text-align: center">
-			<form action="${pageContext.request.contextPath}/getproductbypage" id="myform">
+			<form id="myform">
 				<div class="searchTop">
 					<div>
 						<label for="name">商品名称：</label>
@@ -104,7 +108,7 @@
 						</select>
 					</div>
 					<div class="onetop">
-						<button type="submit" class="btn btn-primary">查询</button>
+						<button type="button" class="btn btn-primary" id="search">查询</button>
 					</div>
 				</div>
 			</form>
@@ -115,7 +119,7 @@
 			    <input type="button" class="btn btn-warning" id="batchdelpro" value="批量删除">
 				<input type="button" class="btn btn-warning" id="btn1" value="新增商品" onclick="addpro()">
 			</div>
-			<!--显示没有分页的商品信息-->
+			<!--显示分页的商品信息-->
 			<div id="middle">
 				<table class="table table-bordered table-striped">
 					<thead>
@@ -133,73 +137,120 @@
 							<th scope="col">操作</th>
 						</tr>
 					</thead>
-					<tbody>
-						<!-- pagebean分页实体 list属性为当前页的数据 -->
-						<c:forEach items="${pagebean.list}" var="p">
-							<tr>
-								<th style="width: 50px;text-align: center;" scope="row">
-									<input type="checkbox" name="id" value="${p.id}" style="width: 20px;height: 20px;">
-								</th>
-								<td>${p.name}</td>
-								<td>${p.content}</td>
-								<td>${p.price}</td>
-								<td><img width="55px" height="45px"
-										 src="${pageContext.request.contextPath}/resources/image_big/${p.image}"></td>
-								<td>${p.number}</td>
-								<td><fmt:formatDate value="${p.date}" pattern="yyyy-MM-dd hh:mm:ss"/>
-								</td>
-								<td>${p.typename}</td>
-								<td>
-									<button type="button" class="btn btn-info myupdate"
-											onclick="pmodify(${p.id})">修改</button>
-									<button type="button" class="btn btn-warning" id="mydel"
-											onclick="pdel(${p.id})">删除</button>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
+					<!-- 动态生成数据，做数据的显示的局部刷新 -->
+					<tbody id="productlist"></tbody>
 				</table>
-				<!--分页栏-->
-				<div class="footNum">
-					<ul>
-						<c:choose>
-							<c:when test="${pagebean.page eq 1 }">
-								<li class="pre"><a href="javascript:void(0)">上一页</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="pre"><a
-									href="${pageContext.request.contextPath}/getproductbypage?page=${pagebean.page-1}&name=${name}&typeid=${typeid}">
-										上一页</a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach begin="1" end="${pagebean.pages}" step="1" var="index">
-							<c:choose>
-								<c:when test="${pagebean.page eq index}">
-									<li class="num current"><a href="javascript:void(0)">${index}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="num"><a
-										href="${pageContext.request.contextPath}/getproductbypage?page=${index}&name=${name}&typeid=${typeid}">${index}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${pagebean.page eq pagebean.pages}">
-								<li class="last"><a href="javascript:void(0)">下一页</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="last"><a
-									href="${pageContext.request.contextPath}/getproductbypage?page=${pagebean.page+1}&name=${name}&typeid=${typeid}">
-										下一页</a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-				</div>
+				<!--分页栏 动态生成-->
+				<div id="kkpager"></div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
+
+	//分页的js代码
+	//第一次进入页面默认显示第一页的数据
+	var currentPage = 1;
+
+	//载入 (默认加载全部) 默认第一次为currentPage为 1
+	loadData(currentPage);
+
+	//查询
+	function loadData(page) {
+
+		var currentPage = page;
+
+		//获取查询的参数
+		//商品类型的ID值
+		var tid = $("#typeId").val();
+		if(tid == ''){
+			tid = -1;
+		}
+		//商品类型的名称值
+		var name = $("#name").val();
+
+		//异步加载数据 参数的格式为json格式的参数{currentPage:page} 参数的名称currentPage 参数的值page
+		//在springmvc中使用Map集合接受参数，还需要注解@RequestParam
+		//数据返回的对象名称为data,名称可以自定义，返回的格式有时json
+		$.ajax({
+			type:"GET",
+			url:"${pageContext.request.contextPath}/product_list_ajax",
+			data:{pn:currentPage,typeId:tid,Name:name},
+			dataType:"json",
+			success:function (data) {
+				//先清除前一步的数据tbody
+				$("#productlist").html("");
+				//先清除前一步的分页div
+				$("#kkpager").html("");
+				//遍历数据 生成动态的数据 附加到tbody里面去 ，data就是我们的分页的实体类PageBean转换后的Map集合,list键就是数据
+				if (data.list != null && data.list.length > 0) {
+					for (var i = 0; i < data.list.length; i++) {
+						$("#productlist").append('<tr> ' +
+								'<th style="width: 50px;text-align: center;" scope="row">' +
+								'<input type="checkbox" name="id" value="'+ data.list[i].id +'" style="width: 20px;height: 20px;"> </th> ' +
+								'<td>'+ data.list[i].name +'</td>' +
+								'<td>'+ data.list[i].content +'</td>' +
+								'<td>'+ data.list[i].price +'</td>' +
+								'<td><img width="55px" height="45px"' +
+								'src="${pageContext.request.contextPath}/resources/image_big/'+ data.list[i].image +'"></td> ' +
+								'<td>'+ data.list[i].number +'</td>' +
+								'<td>'+ data.list[i].sdate +'</td>' +
+								'<td>'+ data.list[i].typename +'</td>' +
+								'<td> ' +
+								'<button type="button" class="btn btn-info myupdate" ' +
+								'onclick="pmodify('+ data.list[i].id +')">修改</button> ' +
+								'<button type="button" class="btn btn-warning" id="mydel"' +
+								'onclick="pdel('+ data.list[i].id +')">删除</button> </td> </tr>'
+						)
+					}
+				}
+				//分页脚标 ：data.pageSize每页显示数， data.pageCount总的页数， data.rowCount总的行数
+				createPageInfo(page,data.pageSize,data.pageCount,data.rowCount,goToPage);
+			}
+		});
+	}
+
+	function goToPage(n){
+		loadData(n);
+	}
+
+	//init
+	function createPageInfo(currentPage,pageSize,pageCount,recordCount,callbackFunction){
+
+		var totalPage = pageCount;
+		var totalRecords = recordCount;
+		var pageNo = currentPage;
+		if(!pageNo){
+			pageNo = 1;
+		}
+
+		$("#kkpager").html("");
+
+
+		//生成分页
+		//有些参数是可选的，比如lang，若不传有默认值
+		kkpager.inited = false;
+		kkpager.generPageHtml({
+			pno : pageNo,
+			//总页码
+			total : totalPage,
+			mode : 'click',
+			//总数据条数
+			totalRecords : totalRecords,
+			click : function(n){
+				//这里可以做自已的处理
+				//处理完后可以手动条用selectPage进行页码选中切换
+				callbackFunction(n);
+				kkpager.selectPage(n);
+			}
+		});
+	}
+
+	//查询按钮的提交
+	$("#search").bind("click",function(){
+		loadData(currentPage);
+	});
+
     /*删除商品  */
     function pdel(id) {
         if (confirm("确定删除吗")) {

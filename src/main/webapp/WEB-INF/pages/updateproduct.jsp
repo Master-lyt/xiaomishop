@@ -103,8 +103,8 @@
 							</div> <br>
 						<br>
 						<br>
-						<br> <input type="file" id="upimage" name="upimage" onchange="fileChange()"> 
-							<input type="hidden" id="pimage" name="image"> <span id="imgName"> </span><br></td>
+						<br> <input type="file" id="upimage" name="upimage"  onchange="fileChange()">
+							<input type="hidden" id="pimage" name="image" value="${product.image}"> <span id="imgName"> </span><br></td>
 					</tr>
 					<tr class="three">
 						<td class="four"></td>

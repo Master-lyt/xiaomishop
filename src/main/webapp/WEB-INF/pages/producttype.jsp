@@ -42,9 +42,19 @@
 	</div>
 	<div id="condition" style="text-align: center">
 		<form id="myform">
-			商品类型ID：<input name="tid" id="tid" value="${tid }" placeholder="请输入商品类型ID">
-			商品类型名称：<input name="tname" id="tname" value="${tname }" placeholder="请输入商品类型名称">
-			<input id="search" type="button"  value="查询" />
+			<div class="searchTop">
+				<div>
+					<label for="tid">商品类型ID：</label>
+					<input name="typeName" id="tid" value="${tid }"placeholder="请输入商品类型ID"  class="form-control indvidiv">
+				</div>
+				<div class="onetop">
+					<label for="tname">商品类型名称：</label>
+					<input name="typeName" id="tname" value="${tname }"placeholder="请输入商品类型名称"  class="form-control indvidiv">
+				</div>
+				<div class="onetop">
+					<button type="button" class="btn btn-primary" id="search">查询</button>
+				</div>
+			</div>
 		</form>
 	</div>
 	<br>

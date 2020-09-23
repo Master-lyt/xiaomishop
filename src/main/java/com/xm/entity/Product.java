@@ -11,6 +11,24 @@ public class Product {
   private long number;
   private long typeid;
   private java.util.Date date;
+  private String typename;
+  private String SDate;
+
+  public String getSDate() {
+    return SDate;
+  }
+
+  public void setSDate(String SDate) {
+    this.SDate = SDate;
+  }
+
+  public String getTypename() {
+    return typename;
+  }
+
+  public void setTypename(String typename) {
+    this.typename = typename;
+  }
 
   @Override
   public String toString() {

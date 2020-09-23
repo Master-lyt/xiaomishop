@@ -2,6 +2,7 @@ package com.xm.service;
 
 import com.xm.entity.PageBean;
 import com.xm.entity.Product;
+import com.xm.untils.Query;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +20,8 @@ public interface ProductService {
     //删除商品
     int delProductById(int id);
 
-    //分页获取所有商品
-    PageBean<HashMap<String, Object>> getAllProductByPage(String name, int typeId, int page, int pagesize);
+//    //分页获取所有商品
+//    PageBean<HashMap<String, Object>> getAllProductByPage(String name, int typeId, int page, int pagesize);
 
     //批量删除商品
     int delBatchProduct(int[] ids);
@@ -33,5 +34,7 @@ public interface ProductService {
     public int updateProduct(Product product);
 
     List<Product> getProductFiveList();
+
+    PageBean<Product> getProductListAjax(String Name, int typeid, Query query);
 }
 

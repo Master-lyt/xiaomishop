@@ -5,6 +5,7 @@ import com.xm.entity.Product;
 import com.xm.entity.ProductType;
 import com.xm.service.ProductService;
 import com.xm.service.ProductTypeService;
+import com.xm.untils.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -43,15 +45,9 @@ public class ProductController {
 
     //获取所有的商品的信息
     @GetMapping("/getproductbypage")
-    public String showProduct(@RequestParam(name = "name", defaultValue = "") String name,
-                              @RequestParam(name = "typeid", defaultValue = "-1") int typeId,
-                              @RequestParam(name = "page", defaultValue = "1") int page, Model model){
-        int pagesize = 5;
-        PageBean<HashMap<String, Object>> products = productService.getAllProductByPage(name,typeId, page, pagesize);
-        model.addAttribute("pagebean", products);
-        model.addAttribute("ptlist",productTypeService.selectProductType());
-        model.addAttribute("name", name);
-        model.addAttribute("typeid", typeId);
+    public String showProduct(Model model){
+        List<ProductType> productTypes = productTypeService.selectProductType();
+        model.addAttribute("ptlist", productTypes);
         return "productbypage";//WEB-INF/jsp/productnopage.jsp
     }
 
@@ -130,15 +126,13 @@ public class ProductController {
     }
 
     @PostMapping("/updateproduct")
-    public String updateProduct(Product product, String upimage){
+    public String updateProduct(Product product){
         Date date = new Date();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = sdf.format(date);
         Timestamp ts = Timestamp.valueOf(dateStr);
         product.setDate(ts);
-        if(!upimage.equals(product.getImage())){
-            product.setImage(upimage);
-        }
+        System.out.println("/updateproduct---->product's image" + product.getImage());
         productService.updateProduct(product);
         return "redirect:/getproductbypage";
     }
@@ -150,8 +144,21 @@ public class ProductController {
         Product product=productService.getProductById(id);
         model.addAttribute("products",product);
 
-
         return "productdetail";
+    }
 
+    @GetMapping("product_list_ajax")
+    @ResponseBody
+    public Map<String, Object> getProductListAjax(@RequestParam(name = "Name", defaultValue = "") String Name,
+                                                  @RequestParam(name = "pn", defaultValue = "-1") int pn,
+                                                  @RequestParam(name = "typeId", defaultValue = "-1") int typeId){
+        Query query = new Query(pn, 5);
+        PageBean<Product> products = productService.getProductListAjax(Name, typeId, query);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("list", products.getList());
+        resultMap.put("pageSize", query.getPs());
+        resultMap.put("pageCount", products.getPages());
+        resultMap.put("rowCount", products.getRowcount());
+        return resultMap;
     }
 }
