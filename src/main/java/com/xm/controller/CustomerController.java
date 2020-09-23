@@ -74,7 +74,7 @@ public class CustomerController {
         return "customerlogin";
     }
 
-    //登陆业务
+    //登录业务
     @PostMapping("/customerlogin")
     public String doCustomerLogin(String cname,String cpass,HttpSession session){
 

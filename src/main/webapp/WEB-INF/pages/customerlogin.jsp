@@ -12,7 +12,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>登陆小米账号</title>
+<title>登录小米账号</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -42,7 +42,7 @@ hr {
 /* 顶部菜单导航栏 */
 #topbar {
 	background-color: #3B3B3B;
-	width: 1890px;
+	width: 100%;
 	height: 40px;
 }
 
@@ -62,15 +62,15 @@ hr {
 }
 
 #topbar_left {
-	width: 700px;
-	margin-left: 350px;
+	width: 70%;
+	margin-left: 100px;
 	padding-top: 10px;
 	float: left;
 }
 
 #topbar_right {
-	width: 400px;
-	margin-left: 1300px;
+	width: 30%;
+	margin-left: 950px;
 	padding-top: 10px;
 }
 
@@ -149,8 +149,8 @@ hr {
 	background-color: white;
 	width: 510px;
 	height: 600px;
-	margin-left: 1210px;
-	margin-top: 182px;
+	margin-left: 950px;
+	margin-top: 100px;
 }
 
 #loginlogo {
@@ -203,7 +203,7 @@ hr {
 			</div>
 			<div id="topbar_right">
 				<c:if test="${empty customer }">
-					<a href="${pageContext.request.contextPath}/tocustomerloginpage">登陆</a>
+					<a href="${pageContext.request.contextPath}/tocustomerloginpage">登录</a>
 					<span class="sep">|</span>
 				</c:if>
 				<c:if test="${not empty customer }">
