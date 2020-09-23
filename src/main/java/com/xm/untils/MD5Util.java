@@ -7,6 +7,11 @@ package com.xm.untils;
  */
 public class MD5Util {
 
+//    public static void main(String[] args) {
+//        String md5 = getMd5Str("admin");//明文为123
+//        System.out.println("密文为:"+md5);//密文md5
+//    }
+
     private static MD5Util md5Util = new MD5Util();
 
     public static String getMd5Str(String str){

@@ -71,19 +71,22 @@ public class CustomerController {
     //跳转用户登录
     @GetMapping("/tocustomerloginpage")
     public String toLoginPage(){
-
         return "customerlogin";
-
     }
 
     //登陆业务
     @PostMapping("/customerlogin")
     public String doCustomerLogin(String cname,String cpass,HttpSession session){
 
-        Customer customer=customerService.login(cname, MD5Util.getMd5Str(cpass));
-        session.setAttribute("customer",customer);
+        String url = "redirect:/index";
+        if(cname.equals("admin") && cpass.equals("admin")){
+            url = "redirect:/login";
+        }else {
+            Customer customer=customerService.login(cname, MD5Util.getMd5Str(cpass));
+            session.setAttribute("customer",customer);
+        }
 
-        return"redirect:/index";
+        return url;
     }
 
 

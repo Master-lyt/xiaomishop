@@ -136,7 +136,6 @@ public class ProductController {
         String dateStr = sdf.format(date);
         Timestamp ts = Timestamp.valueOf(dateStr);
         product.setDate(ts);
-        System.out.println("pro:" + product + ", upimage:" + upimage);
         if(!upimage.equals(product.getImage())){
             product.setImage(upimage);
         }
