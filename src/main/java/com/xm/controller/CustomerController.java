@@ -2,7 +2,9 @@ package com.xm.controller;
 
 
 import com.xm.entity.Customer;
+import com.xm.entity.Product;
 import com.xm.service.CustomerService;
+import com.xm.service.ProductService;
 import com.xm.untils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,6 +25,8 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private ProductService productService;
     //进入客户注册页面,用户进行注册
     @GetMapping("/toregisterpage")
     public String toRePage(){
@@ -45,21 +50,6 @@ public class CustomerController {
         return result;//info输出的内容，显示在页面上
     }
 
-    //跳转用户登录
-    @GetMapping("/tocustomerloginpage")
-    public String toLoginPage(){
-
-        return "customerlogin";
-
-    }
-
-    //登陆业务
-    @PostMapping("/customerlogin")
-    public String doCustomerLogin(String cname,String cpass,HttpSession session){
-        Customer customer=customerService.login(cname, MD5Util.getMd5Str(cpass));
-        session.setAttribute("customer",customer);
-        return"redirect:/front/index";
-    }
 
     @PostMapping("/doregister")
     public String doRegister(Customer customer, String yzm, HttpSession session, Model model){
@@ -75,6 +65,46 @@ public class CustomerController {
         customerService.registerCustomer(customer);
             //成功进入登陆界面
         return "customerlogin";
+    }
+
+
+    //跳转用户登录
+    @GetMapping("/tocustomerloginpage")
+    public String toLoginPage(){
+
+        return "customerlogin";
+
+    }
+
+    //登陆业务
+    @PostMapping("/customerlogin")
+    public String doCustomerLogin(String cname,String cpass,HttpSession session){
+
+        Customer customer=customerService.login(cname, MD5Util.getMd5Str(cpass));
+        session.setAttribute("customer",customer);
+
+        return"redirect:/index";
+    }
+
+
+
+    //首页显示前五条数据
+    @GetMapping("/index")
+    public String toShopPage(Model model){
+
+        List<Product> products=productService.getProductFiveList();
+        model.addAttribute("products",products);
+        return "shop";
+
+    }
+
+    //登陆注销
+    @GetMapping("/customerlogout")
+    public String customerLogut(HttpSession session){
+
+        //session.invalidate()清空所有sessions数据
+        session.removeAttribute("customer");
+        return "redirct:/index";
     }
 
 }

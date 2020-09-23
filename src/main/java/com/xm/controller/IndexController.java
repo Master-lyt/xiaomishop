@@ -17,19 +17,7 @@ import java.util.List;
 @RequestMapping("/front")
 public class IndexController {
 
-    @Autowired
-    private ProductService productService;
-
-    //首页显示前五条数据
-    @GetMapping("/index")
-    public String toShopPage(Model model){
-
-        List<Product> products=productService.getProductFiveList();
-        model.addAttribute("products",products);
 
 
-        return "shop";
-
-    }
 
 }

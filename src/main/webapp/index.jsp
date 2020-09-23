@@ -7,6 +7,6 @@
       <%-- <c:redirect url="/login"/> --%>
 <%--    <a href="${pageContext.request.contextPath}/xad/getaddress">查询所有地址</a>--%>
 
-            <c:redirect url="/front/index"/>
+            <c:redirect url="index"/>
 </body>
 </html>

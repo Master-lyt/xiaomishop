@@ -8,11 +8,12 @@
 
     </select>
 
-    <select id="login" parameterType="string" resultType="customer">
+    <!--用户登录-->
+    <select id="login" resultType="customer">
         select
         *
         from customer
-        where cname=#{cname},cpass=#{cpass}
+        where cname=#{cname} AND cpass=#{cpass}
     </select>
 
     <insert id="registerCustomer" parameterType="customer">
