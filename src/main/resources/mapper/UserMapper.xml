@@ -32,6 +32,7 @@
 		<if test=" name != null and name != '' ">
 			<bind name="name" value=" '%' + name + '%' "/>
 			AND users.uname like #{name}
+			OR users.realname like #{name}
 		</if>
 		<if test=" typeId != null and typeId != -1 ">
 			AND users.roleid = #{typeId}

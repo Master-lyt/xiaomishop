@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
-	/*进入添加商品的页面*/
+	/*进入添加用户的页面*/
     function addusers(){
     	window.location.href="${pageContext.request.contextPath}/adduserspage";//get
     }
@@ -27,10 +27,14 @@
 	href="${pageContext.request.contextPath}/resources/css/bright.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/addBook.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/kkpage.css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/kkpage.js"></script>
 <title></title>
 <style type="text/css">
 	#batchdelpro {
@@ -44,27 +48,180 @@
 </style>
 
 <script type="text/javascript">
+    //初始加载
+    var currentPage = 1;
+    renovate(currentPage);
+    //定义跨页删除数组
+    var ids = new Array();
+
 	$(function(){
 		$("#checkAll").click(function(){
 			if($(this).prop("checked")){
-                $("input[type='checkbox']").not(this).prop("checked",true);
-            }else{
-                $("input[type='checkbox']").not(this).prop("checked",false);
-            }
-		});
-		
-		$("#batchdelusers").click(function(){
-			 var ids = new Array(); //定义一个数组存储id
-			 $("input[name='id']:checked").each(function() {
-			      ids.push($(this).val()); // 把值push进入数组里面
-			 });
-			 if(ids.length == 0){
-			      alert('请选择至少一条记录删除');
-			      return;
-			 }
-			 location.href="${pageContext.request.contextPath}/batchdelusers?ids="+ids;//get
+				$("input[type='checkbox']").not(this).prop("checked",true);
+			}else{
+				$("input[type='checkbox']").not(this).prop("checked",false);
+			}
 		});
 	});
+
+    //更新页面
+    function renovate(page) {
+        var j = 1;
+        currentPage = page;
+    	var AbsoluteAddress = "${pageContext.request.contextPath}";
+    	var strimg = "";
+    	var strche = "";
+		//获取查询值
+		var roleid = $("#typeid").val();
+		if (roleid == '' && roleid == null) {
+			roleid = -1;
+		}
+		var uname = $("#name").val();
+        //异步加载数据 参数的格式为json格式的参数{currentPage:page} 参数的名称currentPage 参数的值page
+        //在springmvc中使用Map集合接受参数，还需要注解@RequestParam
+        //数据返回的对象名称为data,名称可以自定义，返回的格式有时json
+        $.ajax({
+            type:"GET",
+            url:"${pageContext.request.contextPath}/getusersbypage_ajax",
+			contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+            data:{page:currentPage, roleid:roleid, uname:uname},
+            dataType:"json",
+            success:function(data) {
+                //先清除前一步的数据tbody
+                $("#users_list").html("");
+                //先清除前一步的分页div
+                $("#kkpager").html("");
+                //遍历数据 生成动态的数据 附加到tbody里面去 ，data就是我们的分页的实体类PageBean转换后的Map集合,list键就是数据
+                if (data.list != null && data.list.length > 0) {
+                    $.each(data.list, function (i, user) {
+                        if (user.uimage == '' || user.uimage == null) {
+                            strimg += 'src="' + AbsoluteAddress + '/resources/image_big/defualt.jpg"';
+                        }
+                        else {
+                            strimg += 'src="' + AbsoluteAddress + '/resources/image_big/' + user.uimage + '"'
+                        }
+
+                        for (var j = 0; j < ids.length; j++) {
+                            if (user.uid == ids[j]) {
+                                console.log(ids[j]);
+                                strche = "checked";
+                            }
+                        }
+
+                        $("#users_list").append(
+                            '<tr>\n'+
+                            '<th style="width: 50px;text-align: center;" scope="row">' +
+                            '<input type="checkbox" onclick="check(' + user.uid + ')" value="' + user.uid + '" style="width: 20px;height: 20px;" ' + strche + '>' +
+                            '</th>' +
+                            '<td>' + user.uname + '</td>' +
+                            '<td>' + user.udepartment + '</td>' +
+                            '<td>' + user.realname + '</td>' +
+                            '<td>' + user.rolename + '</td>' +
+                            '<td><img width="55px" height="45px" ' + strimg + '</td>' +
+                            '<td>' +
+                            '<button type="button" class="btn btn-info myupdate"' + 'onclick="umodify(' + user.uid + ')">修改</button>' +
+                            '<button type="button" class="btn btn-warning" id="mydel"' + 'onclick="udel(' + user.uid + ')">删除</button>' +
+                            '</td>'
+                        );
+
+                        strche = "";
+                    })
+                }
+                else if (currentPage > 1){
+                    currentPage --;
+                    renovate(currentPage);
+                }
+				//分页脚标 ：data.pageSize每页显示数， data.pageCount总的页数， data.rowCount总的行数
+				createPageInfo(page, data.pagesize, data.pages, data.rowcount, renovate);
+			},
+            error:function() {
+                alert("预期外的错误");
+		    }
+	    })
+    };
+
+    /*删除商品  */
+    function udel(id) {
+        if (confirm("确定删除吗")) {
+            $.ajax({
+                type:"GET",
+                url:"${pageContext.request.contextPath}/delusers?id=" + id,
+                contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+                dataType:"text",
+                success:function() {
+                    renovate(currentPage);
+                }
+            })
+        }
+    }
+
+    //进行跨页删除的数组增删
+	function check(id) {
+    	var flag = 0;
+    	for (var i = 0 ; i < ids.length; i++) {
+    		if (id == ids[i]) {
+    			ids.splice(i, 1);
+    			flag = 1;
+			}
+		}
+    	if (flag == 0) {
+    		ids.push(id);
+		}
+	}
+
+    //批量删除商品（跨页）
+    function udelBatch() {
+        if(ids.length == 0){
+			alert('请选择至少一条记录删除');
+			return;
+		}
+		else {
+			$.ajax({
+				type:"GET",
+				url:"${pageContext.request.contextPath}/batchdelusers?ids=" + ids,
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				dataType:"text",
+				success:function() {
+					renovate(currentPage);
+				}
+			})
+		}
+    }
+
+    /*修改商品  */
+    function umodify(id) {
+        location.href = "${pageContext.request.contextPath}/getusersbyid?id="+id;
+    }
+
+    //创建分页
+    function createPageInfo(currentPage, pageSize, pageCount, recordCount, callbackFunction){
+        var totalPage = pageCount;
+        var totalRecords = recordCount;
+        var pageNo = currentPage;
+        if(!pageNo){
+            pageNo = 1;
+        }
+
+        $("#kkpager").html("");
+
+        //生成分页
+        //有些参数是可选的，比如lang，若不传有默认值
+        kkpager.inited = false;
+        kkpager.generPageHtml({
+            pno : pageNo,
+            //总页码
+            total : totalPage,
+            mode : 'click',
+            //总数据条数
+            totalRecords : totalRecords,
+            click : function(n){
+                //这里可以做自已的处理
+                //处理完后可以手动条用selectPage进行页码选中切换
+                callbackFunction(n);
+                kkpager.selectPage(n)
+            }
+        });
+    }
 </script>
 </head>
 
@@ -83,7 +240,7 @@
 			<p>用户管理>用户列表</p>
 		</div>
 		<div id="condition" style="text-align: center">
-			<form action="${pageContext.request.contextPath}/getusersbypage" id="myform">
+			<form id="myform">
 				<div class="searchTop">
 					<div>
 						<label for="name">用户名称：</label>
@@ -104,7 +261,7 @@
 						</select>
 					</div>
 					<div class="onetop">
-						<button type="submit" class="btn btn-primary">查询</button>
+						<button type="button" class="btn btn-primary" onclick="renovate(1)">查询</button>
 					</div>
 				</div>
 			</form>
@@ -112,7 +269,7 @@
 		<br>
 		<div id="table">
 			<div id="top">
-				<input type="button" class="btn btn-warning mv" id="batchdelpro" value="批量删除">
+				<input type="button" class="btn btn-warning mv" id="batchdelpro" onclick="udelBatch()" value="批量删除">
 				<input type="button" class="btn btn-warning" id="btn1" value="新增用户" onclick="addusers()">
 			</div>
 			<!--显示没有分页的用户信息-->
@@ -131,86 +288,14 @@
 						<th scope="col">操作</th>
 					</tr>
 					</thead>
-					<tbody>
-					<!-- pagebean分页实体 list属性为当前页的数据 -->
-					<c:forEach items="${pagebean.list}" var="u">
-						<tr>
-						    <th style="width: 50px;text-align: center;" scope="row">
-						    	<input type="checkbox" name="id" value="${u.uid}" style="width: 20px;height: 20px;">
-						    </th>
-							<td>${u.uname}</td>
-							<td>${u.udepartment}</td>
-							<td>${u.realname}</td>
-							<td>${u.rolename}</td>
-							<td><img width="55px" height="45px"
-								<c:if test="${u.uimage == '' || u.uimage == null}">
-									 src="${pageContext.request.contextPath}/resources/image_big/defualt.jpg"
-								</c:if>
-								<c:if test="${u.uimage != ''}">
-									 src="${pageContext.request.contextPath}/resources/image_big/${u.uimage}"
-								</c:if>>
-								</td>
-
-							<td>
-								<button type="button" class="btn btn-info myupdate"
-									onclick="umodify(${u.uid})">修改</button>
-								<button type="button" class="btn btn-warning" id="mydel"
-									onclick="udel(${u.uid})">删除</button>
-							</td>
-						</tr>
-					</c:forEach>
+					<tbody id="users_list">
 					</tbody>
 				</table>
 				<!--分页栏-->
-				<div class="footNum">
-					<ul>
-						<c:choose>
-							<c:when test="${pagebean.page eq 1 }">
-								<li class="pre"><a href="javascript:void(0)">上一页</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="pre"><a
-									href="${pageContext.request.contextPath}/getusersbypage?page=${pagebean.page-1}&uname=${uname}&roleid=${roleid}">
-										上一页</a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach begin="1" end="${pagebean.pages}" step="1" var="index">
-							<c:choose>
-								<c:when test="${pagebean.page eq index}">
-									<li class="num current"><a href="javascript:void(0)">${index}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="num"><a
-										href="${pageContext.request.contextPath}/getusersbypage?page=${index}&uname=${uname}&roleid=${roleid}">${index}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${pagebean.page eq pagebean.pages}">
-								<li class="last"><a href="javascript:void(0)">下一页</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="last"><a
-									href="${pageContext.request.contextPath}/getusersbypage?page=${pagebean.page+1}&uname=${uname}&roleid=${roleid}">
-										下一页</a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
+				<div id="kkpager">
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-    /*删除商品  */
-    function udel(id) {
-        if (confirm("确定删除吗")) {
-            location.href = "${pageContext.request.contextPath}/delusers?id="+id;//get
-        }
-    }
-    /*修改商品  */
-    function umodify(id) {
-        location.href = "${pageContext.request.contextPath}/getusersbyid?id="+id;
-    }
-</script>
 </html>

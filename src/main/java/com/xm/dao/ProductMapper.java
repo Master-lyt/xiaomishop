@@ -1,6 +1,5 @@
 package com.xm.dao;
 
-import com.xm.entity.ProductType;
 import  com.xm.entity.Product;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
