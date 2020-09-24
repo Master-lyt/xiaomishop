@@ -59,7 +59,7 @@
 								<span class="glyphicon glyphicon-play" style="color: white;"></span>
 							</li>
 						</a>
-						<a href="${pageContext.request.contextPath}/admin/err.jsp" target="myright">
+						<a href="${pageContext.request.contextPath}/getorderbypage" target="myright">
 							<li class="one">
 								<span class="glyphicon glyphicon-sort" style="color: white;"></span>
 								<div class="Manage">订单管理</div>

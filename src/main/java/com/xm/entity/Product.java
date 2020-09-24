@@ -41,6 +41,8 @@ public class Product {
             ", number=" + number +
             ", typeid=" + typeid +
             ", date=" + date +
+            ", typename='" + typename + '\'' +
+            ", SDate='" + SDate + '\'' +
             '}';
   }
 

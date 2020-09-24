@@ -181,6 +181,9 @@ hr {
 	left: 160px;
 	top: 230px;
 }
+	label{
+		margin-right: 10px;
+	}
 </style>
 </head>
 
@@ -231,14 +234,13 @@ hr {
 		</div>
 		<div id="login_form">
 			<form action="${pageContext.request.contextPath}/customerlogin" method="post">
-				账号<br> <input type="text" id="cname" name="cname" value=""
+				<label for="cname">账号:</label><input type="text" id="cname" name="cname" value=""
 					class="logininput" onmouseover="this.style.borderColor='#FF7E00';"
+					onmouseout="this.style.borderColor='#EDEDED';"/> <br> <br>
+				<label for="cpass">密码:</label><input type="password" id="cpass" name="cpass"
+					class="logininput" value="" onmouseover="this.style.borderColor='#FF7E00';"
 					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
-				密码<br> <input type="password" id="cpass" name="cpass"
-					class="logininput" value=""
-					onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
-				验证码<img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
+				<label for="yzm">验证码</label><img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
 					onclick="changeYzm()"> <br> <input type="text" id="yzm"
 					name="yzm" class="logininput" value=""
 					onmouseover="this.style.borderColor='#FF7E00';"
