@@ -136,7 +136,7 @@
 		//数据返回的对象名称为data,名称可以自定义，返回的格式有时json
 		$.ajax({
 			type:"POST",
-			url:"${pageContext.request.contextPath}/producttype_list_ajax",
+			url:"${pageContext.request.contextPath}/producttype_list_ajax.do",
 			data:{pn:currentPage,typeId:tid,typeName:tname},
 			dataType:"json",
 			success:function (data) {
@@ -217,7 +217,7 @@
 			if(confirm("确定要删除吗？")){
 				$.ajax({
 					type:"GET",
-					url:"${pageContext.request.contextPath}/delproducttype",
+					url:"${pageContext.request.contextPath}/delproducttype.do",
 					data:{id:id},
 					dataType:"json",
 					success:function (data) {
@@ -233,11 +233,11 @@
 
 		//添加/修改
 		$(document).on("click","#aSubmit",function(){
-			var url = "${pageContext.request.contextPath}/updateprotype";
+			var url = "${pageContext.request.contextPath}/updateprotype.do";
 			var typeId = $("#typeIdA").val();
 			if(typeId == ''){
 				typeId = -1;
-				url = "${pageContext.request.contextPath}/addprotype";
+				url = "${pageContext.request.contextPath}/addprotype.do";
 			}
 			var typeName = $("#typeNameA").val();
 			$.ajax({
@@ -265,7 +265,7 @@
 			var id = $(this).attr("name");
 			$.ajax({
 				type:"GET",
-				url:"${pageContext.request.contextPath}/producttypemodify",
+				url:"${pageContext.request.contextPath}/producttypemodify.do",
 				data:{id:id},
 				dataType:"json",
 				success:function (data) {
