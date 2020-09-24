@@ -1,7 +1,22 @@
 package com.xm.service;
 
-import org.apache.ibatis.annotations.Param;
+import com.xm.entity.CarShop;
+
+import java.util.HashMap;
+import java.util.List;
 
 public interface CarShopService {
-    int addCarshop(@Param("customerid") int customerid,@Param("pid") int pid,@Param("numbers") String numbers);
+
+    int addCarshop(CarShop carShop);
+
+    CarShop getCarShopByCustomerId(CarShop carShop);
+
+    int updateCarShopAdd(CarShop carShop);
+
+    int updateCarShopById(int cid,int num);
+
+    List<HashMap<String, Object>> getShopCar(int customerid);
+
+    int delCarShop(int cid, int customerid);
+
 }

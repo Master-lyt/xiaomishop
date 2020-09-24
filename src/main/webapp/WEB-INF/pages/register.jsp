@@ -142,7 +142,7 @@ input:focus {border: 2px solid #FF7E00;}
 			</div>
 			<div id="topbar_right">
 				<c:if test="${empty customer }">
-					<a href="${pageContext.request.contextPath}/tocustomerloginpage">登陆</a>
+					<a href="${pageContext.request.contextPath}/tocustomerloginpage">登录</a>
 					<span class="sep">|</span>
 				</c:if>
 				<c:if test="${not empty customer }">

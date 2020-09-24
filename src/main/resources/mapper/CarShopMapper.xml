@@ -5,8 +5,31 @@
 <mapper namespace="com.xm.dao.CarShopMapper">
 
     <insert id="addCarshop">
-        insert into carshop values(null,#{customerid},#{pid},#{numbers})
+        insert into carshop(customerid, productid, numbers)
+        values(#{carShop.customerid},#{carShop.productid},#{carShop.numbers})
     </insert>
 
+    <select id="getCarShopByCustomerId" resultType="com.xm.entity.CarShop">
+        select * from carshop where customerid = #{carShop.customerid} and productid = #{carShop.productid}
+    </select>
+
+    <select id="getShopCar" resultType="java.util.HashMap">
+        SELECT p.*, c.numbers, c.id as cid
+        FROM product p, carshop c
+        where p.id = c.productid
+        AND c.customerid = #{customerid}
+    </select>
+
+    <update id="updateCarShopAdd" parameterType="com.xm.entity.CarShop">
+        update carshop set numbers = #{carShop.numbers} where customerid = #{carShop.customerid} and productid = #{carShop.productid}
+    </update>
+
+    <update id="updateCarShopById" parameterType="com.xm.entity.CarShop">
+        update carshop set numbers = #{num} where id = #{id}
+    </update>
+
+    <delete id="delCarShop">
+        delete from carshop where id = #{cid} and customerid = #{customerid}
+    </delete>
 
 </mapper>

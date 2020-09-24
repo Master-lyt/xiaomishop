@@ -186,7 +186,7 @@
 		<c:forEach items="${ products}" var="p">
 	    	<div style="width: 238px;height: 300px;float: left;">
 	    		<div style="margin-left: 30px;margin-top: 9px;">
-	    			<a href="${pageContext.request.contextPath}/getproductdetail?id=${p.id}">
+	    			<a href="${pageContext.request.contextPath}/getproductdetail?id=${p.id}" onclick="isLogin()">
 	    				<img src="${pageContext.request.contextPath}/resources/image_big/${p.image}" width="190px" height="190px"/>
 	    			</a>
 	    		</div>

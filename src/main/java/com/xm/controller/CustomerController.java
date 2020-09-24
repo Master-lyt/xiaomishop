@@ -106,7 +106,7 @@ public class CustomerController {
 
         //session.invalidate()清空所有sessions数据
         session.removeAttribute("customer");
-        return "redirct:/index";
+        return "redirect:/index";
     }
 
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -142,7 +141,7 @@ public class ProductController {
     public String getProductDetail(int id,Model model){
 
         Product product=productService.getProductById(id);
-        model.addAttribute("products",product);
+        model.addAttribute("product",product);
 
         return "productdetail";
     }

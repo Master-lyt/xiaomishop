@@ -18,17 +18,35 @@
 <script language="javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript">
 	/* 加减商品数量 */
-	$("[name=jian]").live("click",function(){
-		var numstr = $(this).next("input").val();
-		if(numstr!="1"){
-			$(this).next("input").val(parseInt(numstr)-1);
+	// $("[name=jian]").live("click",function(){
+	// 	var numstr = $(this).next("input").val();
+	// 	if(numstr!="1"){
+	// 		$(this).next("input").val(parseInt(numstr)-1);
+	// 	}
+	// });
+	// $("[name=jia]").live("click",function(){
+	// 	var numstr = $(this).prev("input").val();
+	// 	$(this).prev("input").val(parseInt(numstr)+1);
+	//
+	// });
+
+	//减少数量
+	function subtract(){
+		var obj = document.getElementById("number");
+		var number = obj.value;
+		if(number > 1){
+			obj.value = number - 1;
+			document.getElementById("totalprice").innerHTML = "${product.price}" * obj.value + "&nbsp;元";
 		}
-	});
-	$("[name=jia]").live("click",function(){
-		var numstr = $(this).prev("input").val();
-		$(this).prev("input").val(parseInt(numstr)+1);
-		
-	});
+	}
+	//增加数量
+	function add(){
+		var obj = document.getElementById("number");
+		var number = obj.value;
+		obj.value = parseInt(number) + 1;
+		document.getElementById("totalprice").innerHTML = "${product.price}" * obj.value + "&nbsp;元";
+	}
+
 	/* 删除商品 */
 	function dropconfirm(pid){
 		var op = confirm("确定要删除该商品吗？");
@@ -105,11 +123,12 @@ a:hover {color: #FF7E00;}
 			</div>
 			<div id="topbar_right">
 				<c:if test="${empty customer }">
-					<a href="login.jsp">登陆</a>
+					<a href="login.jsp">登录</a>
 					<span class="sep">|</span>
 				</c:if>
 				<c:if test="${not empty customer }">
 					<a href="">${customer.cname }</a>
+					<input type="hidden" value="${customer.cid }" id="cusId">
 					<span class="sep">|</span>
 					<a href="${pageContext.request.contextPath}/customerlogout">注销</a>
 					<span class="sep">|</span>
@@ -168,13 +187,13 @@ a:hover {color: #FF7E00;}
 					<td width="100">${car.price }</td>
 					<td width="210">
 						<c:if test="${car.numbers>1 }">
-						<a href="javascript:changeN(${car.id},${car.numbers-1})">-</a>
+						<a href="${pageContext.request.contextPath}/changenumber?cid=${car.cid}&num=${car.numbers-1}&customerid=${customer.cid}" onclick="subtract()">-</a>
 						</c:if>
 						<c:if test="${car.numbers==1 }">
 						-
 						</c:if>
-						<input type="text" readonly="readonly" value="${car.numbers }" style="width: 40px; height: 30px; line-height: 30px;border: 0px;text-align: center;font-size: 26px;color:#FF7E00 "/>
-						<a href="javascript:changeN(${car.id},${car.numbers+1})">+</a>
+						<input type="text" value="${car.numbers }" style="width: 40px; height: 30px; line-height: 30px;border: 0px;text-align: center;font-size: 26px;color:#FF7E00 "/>
+						<a href="${pageContext.request.contextPath}/changenumber?cid=${car.cid}&num=${car.numbers+1}&customerid=${customer.cid}">+</a>
 					</td>
 					<td width="200" style="color: #FF7E00;">${car.price*car.numbers }元</td>
 					<c:set var="total" value="${total+car.price*car.numbers }"></c:set>
@@ -189,16 +208,17 @@ a:hover {color: #FF7E00;}
 	<br>
 
 	<script type="text/javascript">
-		function changeN(cid,num) {
-			$.ajax({
-				type : "post",
-				url : "${pageContext.request.contextPath}/changenumber",
-				data:"cid="+cid+"&num="+num,
-				success : function() {
-					window.location.href="";
-				}
-			});
-		}
+		<%--var cusId = $("#cusId");--%>
+		<%--function changeN(cid,num) {--%>
+		<%--	$.ajax({--%>
+		<%--		type : "POST",--%>
+		<%--		url : "${pageContext.request.contextPath}/changenumber",--%>
+		<%--		data:"cid="+cid+"&num="+num,--%>
+		<%--		success : function() {--%>
+		<%--			&lt;%&ndash;window.location.href="${pageContext.request.contextPath}/changenumber";&ndash;%&gt;--%>
+		<%--		}--%>
+		<%--	});--%>
+		<%--}--%>
 	</script>
 	
 	<!-- 结算栏 -->

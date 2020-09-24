@@ -107,6 +107,23 @@ hr {border: 1px solid #EDEDED;}
 </head>
 <script type="text/javascript">
 
+	$(function () {
+		alert("abc");
+		var customerid = $("#customerid").val();
+		var productid = $("#productid").val();
+		if(customerid != "" && customerid != null){
+			$.ajax({
+				type:"GET",
+				url:"${pageContext.request.contextPath}/getExistGoodsNumber",
+				data:{"customerid": customerid, "productid": productid},
+				dataType:"json",
+				success:function (data) {
+					$("#number").val(data.num);
+				}
+			});
+		}
+	});
+
 	//减少数量
 	function subtract(){
 		var obj = document.getElementById("number");
@@ -135,18 +152,18 @@ hr {border: 1px solid #EDEDED;}
 			if(numbers > "${product.number}"){
 				alert("购买的数量不能大于库存的数量");
 			}else{
-				document.getElementById("addcar").setAttribute("href","${pageContext.request.contextPath}/addcarshop?customerid=${customer.cid}&pid=${product.id}&numbers="+numbers)
+				document.getElementById("addcar").setAttribute("href","${pageContext.request.contextPath}/addcarshop?customerid=${customer.cid}&productid=${product.id}&numbers="+numbers)
 			}
 		}
 	}
 	
 	//显示购物车
 	function showCarShop(){
-/* 		if("${customer}" == ''){
-			alert("你还没有登录，请先登录");
-			document.getElementById("showcar").setAttribute("href",
-					"${pageContext.request.contextPath}/tocustomerloginpage");
-		}else{ */
+ 		<%--if("${customer}" == ''){--%>
+		<%--	alert("你还没有登录，请先登录");--%>
+		<%--	document.getElementById("showcar").setAttribute("href",--%>
+		<%--			"${pageContext.request.contextPath}/tocustomerloginpage");--%>
+		<%--}else{ --%>
 			document.getElementById("showcar").setAttribute("href",
 					"${pageContext.request.contextPath}/showcarshopbycustomerid?customerid=${customer.cid}")
 /* 		} */
@@ -173,7 +190,7 @@ hr {border: 1px solid #EDEDED;}
 			</div>
 			<div id="topbar_right">
 				<c:if test="${empty customer }">
-					<a href="login.jsp">登陆</a>
+					<a href="login.jsp">登录</a>
 					<span class="sep">|</span>
 				</c:if>
 				<c:if test="${not empty customer }">
@@ -182,6 +199,7 @@ hr {border: 1px solid #EDEDED;}
 					<a href="${pageContext.request.contextPath}/customerlogout">注销</a>
 					<span class="sep">|</span>
 					<span class="sep">|</span>
+					<input type="hidden" name="customerid" id="customerid" value="${customer.cid}">
 					<a href="${pageContext.request.contextPath}/showcarshopbycustomerid?customerid=${customer.cid}" target="_blank">购物车</a>
 					<span class="sep">|</span>
 				</c:if>
@@ -220,6 +238,7 @@ hr {border: 1px solid #EDEDED;}
 		</div>
 
 		<div id="buy_right">
+			<input type="hidden" name="productid" id="productid" value="${product.id}">
 			<br>
 			<h2>${product.name}</h2>
 			<p style="color: #FF7E00;">【“小米手机品牌日” 64GB 直降100元，下单赠米粉卡。128GB下单立减100元。全版本享花呗6期免息，小米分期3/6/12期免息】</p>
