@@ -121,12 +121,60 @@ input:focus {border: 2px solid #FF7E00;}
 #topbar_left {width: 700px;margin-left: 350px;padding-top: 10px;float: left;}
 #topbar_right {width: 400px;margin-left: 1300px;padding-top: 10px;}
 /* 注册部分 */
-.searchinput {width: 250px;height: 40px;font-size: 16px;border: 1px solid #EDEDED;}
-#searchbtn {background-color: #FF7E00;width: 250px;height: 50px;line-height: 50px;border: 1px solid #EDEDED;cursor: pointer;font-size: 16px;font-family: 黑体;}
-#register {text-align: center;background-color: white;width: 510px;height: 600px;margin: 182px 200px;}
+.searchinput {
+	width: 250px;
+	height: 40px;
+	font-size: 16px;
+	border: 1px solid #EDEDED;
+	margin-top: 10px;
+}
+	.oneGroup{
+		margin-top: 30px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		position: relative;
+		justify-content: space-between;
+	}
+#searchbtn {
+	background-color: #FF7E00;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 10px;
+	border: 1px solid #EDEDED;
+	cursor: pointer;
+	font-size: 16px;
+	font-family: 黑体;
+	margin-top: 20px;
+	width: 100%;
+}
+	#yzmImg{
+		position: absolute;
+		left: 100px;
+		top: 12px;
+	}
+	#yzm{
+		width: 180px;
+	}
+#register {
+	text-align: center;
+	background-color: white;
+	margin: 182px 200px;
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	height: 520px;
+	border-radius: 15px;
+	opacity: 0.90;
+}
 #logo {width: 55px;margin: 0px auto;}
 #reg_title {width: 200px;margin: 0px auto;font-family: 黑体;}
-#reg_form {margin: 0px auto;width: 300px;height: 400px;}
+#reg_form {
+	margin: 0 auto;
+	width: 350px;
+	height: 300px;
+	margin-top: 20px;
+}
 #xy {width: 450px;margin: 0px auto;color: gray;}
 #video {position: absolute;left: 710px;top: 230px;}
 </style>
@@ -181,68 +229,41 @@ input:focus {border: 2px solid #FF7E00;}
 		<!--在提交数据时  如果函数checkRegister()返回为true就可以提交  -->
 		<form action="${pageContext.request.contextPath}/doregister" method="post" onsubmit="return checkRegister();">
 			<div id="reg_form">
-				账号<br> <input type="text" id="cname" name="cname" value="" onblur="checkCname()"
-					class="searchinput" onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" />
-				<br>
+
+				<div class="oneGroup input-group">
+					<label for="cname">账号：</label>
+					<input type="text" id="cname" name="cname" value="" onblur="checkCname()"
+						   class="searchinput" onmouseover="this.style.borderColor='#FF7E00';"
+						   onmouseout="this.style.borderColor='#EDEDED';" />
+				</div>
 				<label style="color:red;" id="info" ></label>
-				<br>
-				密码<br>
-				<input type="password" id="cpass" name="cpass" value=""
-					class="searchinput" onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" />
-				<br>
-				<br>
-				确认密码<br>
-				<input type="password" id="cpass2" name="cpass2" value=""
-					class="searchinput" onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" />
-				<br>
-				<br> 
-				验证码
-					<img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
-						onclick="changeYzm()"> <br> <input type="text"
-						id="yzm" name="yzm" value="" class="searchinput"
-						onmouseover="this.style.borderColor='#FF7E00';"
-						onmouseout="this.style.borderColor='#EDEDED';" />
-				<br>
-				<br>
+
+				<div class="oneGroup input-group">
+					<label for="cpass">密码：</label>
+					<input type="password" id="cpass" name="cpass" value=""
+						   class="searchinput" onmouseover="this.style.borderColor='#FF7E00';"
+						   onmouseout="this.style.borderColor='#EDEDED';" />
+				</div>
+				<div class="oneGroup input-group">
+					<label for="cpass2">确认密码：</label>
+					<input type="password" id="cpass2" name="cpass2" value=""
+						   class="searchinput" onmouseover="this.style.borderColor='#FF7E00';"
+						   onmouseout="this.style.borderColor='#EDEDED';" />
+				</div>
+				<div class="oneGroup input-group">
+					<img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg" onclick="changeYzm()">
+					<label for="yzm">验证码:</label>
+					<input type="text" id="yzm" name="yzm" class="searchinput" value="" />
+				</div>
+
 				<input type="submit" id="searchbtn" value="立即注册"
 					onmouseover="this.style.color='white';"
-					onmouseout="this.style.color='black';"> <br>
+					onmouseout="this.style.color='black';">
 				<p id="errormsg" style="color: red;"></p>
 				<div style="color:red;">${error }</div>
 			</div>
 		</form>
 		<br>
-		<div id="xy">一定要牢记帐号密码！因为我还没做忘记密码功能......</div>
 	</div>
-
-	<div id="video">
-		<object id="NSPlay" width=1065 height=600
-			classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" codebase=""
-			standby="Loading Microsoft Windows Media Player components..."
-			type="application/x-oleobject" align="left" hspace="0">
-			<param name="AutoRewind" value=1>
-			<param name="FileName" value="D:\xmNote3.mp4">
-			<param name="ShowControls" value="0">
-			<param name="ShowPositionControls" value="0">
-			<param name="ShowAudioControls" value="0">
-			<param name="ShowTracker" value="0">
-			<param name="ShowDisplay" value="0">
-			<param name="ShowStatusBar" value="0">
-			<param name="ShowGotoBar" value="0">
-			<param name="ShowCaptioning" value="0">
-			<param name="AutoStart" value=1>
-			<param name="Volume" value="-2000">
-			<param name="AnimationAtStart" value="0">
-			<param name="TransparentAtStart" value="0">
-			<param name="AllowChangeDisplaySize" value="0">
-			<param name="AllowScan" value="0">
-			<param name="EnableContextMenu" value="0">
-			<param name="ClickToPlay" value="0">
-		</object>
-	</div>
-	
 </body>
 </html>
