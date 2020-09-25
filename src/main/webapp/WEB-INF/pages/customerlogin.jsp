@@ -131,6 +131,7 @@ hr {
 	height: 40px;
 	font-size: 16px;
 	border: 1px solid #EDEDED;
+	vertical-align: middle;
 }
 
 #loginbtn {
@@ -140,17 +141,20 @@ hr {
 	line-height: 50px;
 	border: 1px solid #EDEDED;
 	cursor: pointer;
-	font-size: 16px;
+	font-size: 19px;
 	font-family: 黑体;
+	font-color:white;
 }
 
 #login {
 	text-align: center;
 	background-color: white;
-	width: 510px;
-	height: 600px;
+	width: 400px;
+	height: 500px;
 	margin-left: 950px;
-	margin-top: 100px;
+	margin-top: 150px;
+	opacity: 0.95;
+	border-style: outset;
 }
 
 #loginlogo {
@@ -162,12 +166,13 @@ hr {
 	width: 200px;
 	margin: 0px auto;
 	font-family: 黑体;
+
 }
 
 #login_form {
 	margin: 0px auto;
-	width: 300px;
-	height: 300px;
+	width: 220px;
+	height: 270px;
 }
 
 #xy {
@@ -230,14 +235,14 @@ hr {
 		</div>
 		<br> <br>
 		<div id="login_title">
-			<h1>登录小米账号</h1>
+			<h1 style="font-size: 30px">登录小米账号</h1>
 		</div>
 		<div id="login_form">
 			<form action="${pageContext.request.contextPath}/customerlogin" method="post">
-				<label for="cname">账号:</label><input type="text" id="cname" name="cname" value=""
+				<label for="cname"><img	src="${pageContext.request.contextPath}/resources/image/userlogin.png" style="width:20px;height:20px;"></label><input type="text" id="cname" name="cname" value=""
 					class="logininput" onmouseover="this.style.borderColor='#FF7E00';"
 					onmouseout="this.style.borderColor='#EDEDED';"/> <br> <br>
-				<label for="cpass">密码:</label><input type="password" id="cpass" name="cpass"
+				<label for="cpass"><img	src="${pageContext.request.contextPath}/resources/image/userpassword.png.png" style="width:20px;height:20px;"></label><input type="password" id="cpass" name="cpass"
 					class="logininput" value="" onmouseover="this.style.borderColor='#FF7E00';"
 					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
 				<label for="yzm">验证码</label><img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
@@ -247,12 +252,12 @@ hr {
 					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
 				<input type="submit" id="loginbtn" value="立即登录"
 					onmouseover="this.style.color='white';"
-					onmouseout="this.style.color='black';"> <br>
+					onmouseout="this.style.color='black';" > <br>
 				<p id="errormsg" style="color: red;">${error}</p>
 			</form>
 		</div>
 		<br> <br>
-		<div id="xy">一定要牢记帐号密码！因为我还没做忘记密码功能......</div>
+		<div id="xy"></div>
 	</div>
 
 	<div id="video">
