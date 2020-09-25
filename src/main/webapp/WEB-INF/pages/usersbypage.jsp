@@ -99,6 +99,7 @@
                 //遍历数据 生成动态的数据 附加到tbody里面去 ，data就是我们的分页的实体类PageBean转换后的Map集合,list键就是数据
                 if (data.list != null && data.list.length > 0) {
                     $.each(data.list, function (i, user) {
+                    	console.log(user.uimage);
                         if (user.uimage == '' || user.uimage == null) {
                             strimg += 'src="' + AbsoluteAddress + '/resources/image_big/defualt.jpg"';
                         }
@@ -128,7 +129,7 @@
                             '<button type="button" class="btn btn-warning" id="mydel"' + 'onclick="udel(' + user.uid + ')">删除</button>' +
                             '</td>'
                         );
-
+                        strimg = "";
                         strche = "";
                     })
                 }
