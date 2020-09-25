@@ -20,16 +20,8 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.js"></script>
 
-<script type="text/javascript">
-
-	//更换验证码
-	function changeYzm() {
-		document.getElementById("yzmImg").src = "randomcode?num=" + Math.random();
-	}
-
-</script>
 
 <style type="text/css">
 input:focus {
@@ -54,7 +46,7 @@ hr {
 	text-decoration: none;
 	color: #BDBDBD;
 	font-family: 黑体;
-	font-size: 14;
+	font-size: 14px;
 }
 
 #topbar a:hover {
@@ -96,7 +88,7 @@ hr {
 	text-decoration: none;
 	color: black;
 	font-family: 黑体;
-	font-size: 16;
+	font-size: 16px;
 }
 
 #menu_nav a:hover {
@@ -131,7 +123,6 @@ hr {
 	height: 40px;
 	font-size: 16px;
 	border: 1px solid #EDEDED;
-	vertical-align: middle;
 }
 
 #loginbtn {
@@ -141,20 +132,23 @@ hr {
 	line-height: 50px;
 	border: 1px solid #EDEDED;
 	cursor: pointer;
-	font-size: 19px;
+	font-size: 16px;
 	font-family: 黑体;
 	font-color:white;
 }
 
 #login {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
 	text-align: center;
 	background-color: white;
-	width: 400px;
+	width: 450px;
 	height: 500px;
-	margin-left: 950px;
-	margin-top: 150px;
+	border-radius: 15px;
+	top: 80px;
+	right: 100px;
 	opacity: 0.95;
-	border-style: outset;
 }
 
 #loginlogo {
@@ -166,13 +160,12 @@ hr {
 	width: 200px;
 	margin: 0px auto;
 	font-family: 黑体;
-
 }
 
 #login_form {
-	margin: 0px auto;
-	width: 220px;
-	height: 270px;
+	margin: 0 auto;
+	width: 300px;
+	height: 300px;
 }
 
 #xy {
@@ -189,11 +182,37 @@ hr {
 	label{
 		margin-right: 10px;
 	}
+body{
+	background-image: url(resources/image/login.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 110%;
+	background-color: #EDEDED;
+	font-family: 黑体;
+	position: relative;
+}
+.oneGroup{
+	margin-top: 30px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+}
+#yzmImg{
+	position: absolute;
+	right: 5px;
+}
+#yzm{
+	width: 150px;
+}
+#loginbtn{
+	margin-top: 30px;
+	border-radius: 5px;
+	width: 100%;
+}
 </style>
 </head>
 
-<body
-	style="background-image: url(resources/image/login.jpg); background-color: #EDEDED; font-family: 黑体;">
+<body>
 	<!-- 顶部菜单导航栏 -->
 	<div id="header">
 		<div id="topbar">
@@ -235,58 +254,50 @@ hr {
 		</div>
 		<br> <br>
 		<div id="login_title">
-			<h1 style="font-size: 30px">登录小米账号</h1>
+			<h1>登录小米账号</h1>
 		</div>
 		<div id="login_form">
 			<form action="${pageContext.request.contextPath}/customerlogin" method="post">
-				<label for="cname"><img	src="${pageContext.request.contextPath}/resources/image/userlogin.png" style="width:20px;height:20px;"></label><input type="text" id="cname" name="cname" value=""
-					class="logininput" onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';"/> <br> <br>
-				<label for="cpass"><img	src="${pageContext.request.contextPath}/resources/image/userpassword.png.png" style="width:20px;height:20px;"></label><input type="password" id="cpass" name="cpass"
-					class="logininput" value="" onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
-				<label for="yzm">验证码</label><img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
-					onclick="changeYzm()"> <br> <input type="text" id="yzm"
-					name="yzm" class="logininput" value=""
-					onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
+				<div class="oneGroup">
+					<label for="cname">账号:</label>
+					<input type="text" id="cname" name="cname" value=""
+						   class="logininput" onmouseover="this.style.borderColor='#FF7E00';"
+						   onmouseout="this.style.borderColor='#EDEDED';"/>
+				</div>
+
+				<div class="oneGroup">
+					<label for="cpass">密码:</label>
+					<input type="password" id="cpass" name="cpass"
+						   class="logininput" value="" onmouseover="this.style.borderColor='#FF7E00';"
+						   onmouseout="this.style.borderColor='#EDEDED';" />
+				</div>
+				<div class="oneGroup">
+					<img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg" onclick="changeYzm()">
+					<label for="yzm">验证码:</label>
+					<input type="text" id="yzm" name="yzm" class="logininput" value=""
+						   onmouseover="this.style.borderColor='#FF7E00';"
+						   onmouseout="this.style.borderColor='#EDEDED';"/>
+				</div>
+
 				<input type="submit" id="loginbtn" value="立即登录"
-					onmouseover="this.style.color='white';"
-					onmouseout="this.style.color='black';" > <br>
+					   onmouseover="this.style.color='white';"
+					   onmouseout="this.style.color='black';">
+
 				<p id="errormsg" style="color: red;">${error}</p>
 			</form>
 		</div>
 		<br> <br>
-		<div id="xy"></div>
-	</div>
-
-	<div id="video">
-		<object id="NSPlay" width=1065 height=600
-			classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" codebase=""
-			standby="Loading Microsoft Windows Media Player components..."
-			type="application/x-oleobject" align="left" hspace="0">
-			<param name="AutoRewind" value=1>
-			<param name="FileName" value="D:\xmNote3_2.mp4">
-			<param name="ShowControls" value="0">
-			<param name="ShowPositionControls" value="0">
-			<param name="ShowAudioControls" value="0">
-			<param name="ShowTracker" value="0">
-			<param name="ShowDisplay" value="0">
-			<param name="ShowStatusBar" value="0">
-			<param name="ShowGotoBar" value="0">
-			<param name="ShowCaptioning" value="0">
-			<param name="AutoStart" value=1>
-			<param name="Volume" value="-2000">
-			<param name="AnimationAtStart" value="0">
-			<param name="TransparentAtStart" value="0">
-			<param name="AllowChangeDisplaySize" value="0">
-			<param name="AllowScan" value="0">
-			<param name="EnableContextMenu" value="0">
-			<param name="ClickToPlay" value="0">
-		</object>
+		<div id="xy">一定要牢记帐号密码！因为我还没做忘记密码功能......</div>
 	</div>
 
 
+	<script type="text/javascript">
 
+		//更换验证码
+		function changeYzm() {
+			document.getElementById("yzmImg").src = "randomcode?num=" + Math.random();
+		}
+
+	</script>
 </body>
 </html>
