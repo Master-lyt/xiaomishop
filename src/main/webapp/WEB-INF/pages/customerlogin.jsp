@@ -20,9 +20,9 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
+<link rel="stylesheet" ref="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.js"></script>
-
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <style type="text/css">
 input:focus {
 	border: 2px solid #FF7E00;
@@ -122,7 +122,6 @@ hr {
 	width: 250px;
 	height: 40px;
 	font-size: 16px;
-	border: 1px solid #EDEDED;
 }
 
 #loginbtn {
@@ -143,12 +142,12 @@ hr {
 	position: absolute;
 	text-align: center;
 	background-color: white;
-	width: 450px;
-	height: 500px;
+	width: 400px;
+	height: 520px;
 	border-radius: 15px;
 	top: 80px;
 	right: 100px;
-	opacity: 0.95;
+	opacity: 0.90;
 }
 
 #loginlogo {
@@ -166,6 +165,7 @@ hr {
 	margin: 0 auto;
 	width: 300px;
 	height: 300px;
+	margin-top: 20px;
 }
 
 #xy {
@@ -205,10 +205,13 @@ body{
 	width: 150px;
 }
 #loginbtn{
-	margin-top: 30px;
+	margin-top: 50px;
 	border-radius: 5px;
 	width: 100%;
 }
+	#xy{
+		margin-top: 20px;
+	}
 </style>
 </head>
 
@@ -258,36 +261,26 @@ body{
 		</div>
 		<div id="login_form">
 			<form action="${pageContext.request.contextPath}/customerlogin" method="post">
-				<div class="oneGroup">
-					<label for="cname">账号:</label>
-					<input type="text" id="cname" name="cname" value=""
-						   class="logininput" onmouseover="this.style.borderColor='#FF7E00';"
-						   onmouseout="this.style.borderColor='#EDEDED';"/>
+				<div class="oneGroup input-group">
+					<label for="cname"><img src="${pageContext.request.contextPath}/resources/image/userlogin.png" style="width: 35px; height: 25px"/></label>
+					<input type="text" id="cname" name="cname" value="" class="logininput form-control"/>
 				</div>
 
-				<div class="oneGroup">
-					<label for="cpass">密码:</label>
-					<input type="password" id="cpass" name="cpass"
-						   class="logininput" value="" onmouseover="this.style.borderColor='#FF7E00';"
-						   onmouseout="this.style.borderColor='#EDEDED';" />
+				<div class="oneGroup input-group">
+					<label for="cpass"><img src="${pageContext.request.contextPath}/resources/image/userpassword.png" style="width: 35px; height: 25px"/></label>
+					<input type="password" id="cpass" name="cpass" class="logininput form-control" value="" />
 				</div>
-				<div class="oneGroup">
+				<div class="oneGroup input-group">
 					<img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg" onclick="changeYzm()">
 					<label for="yzm">验证码:</label>
-					<input type="text" id="yzm" name="yzm" class="logininput" value=""
-						   onmouseover="this.style.borderColor='#FF7E00';"
-						   onmouseout="this.style.borderColor='#EDEDED';"/>
+					<input type="text" id="yzm" name="yzm" class="logininput form-control" value="" />
 				</div>
 
-				<input type="submit" id="loginbtn" value="立即登录"
-					   onmouseover="this.style.color='white';"
-					   onmouseout="this.style.color='black';">
+				<button type="submit" id="loginbtn" class="btn btn-primary">立即登录</button>
 
 				<p id="errormsg" style="color: red;">${error}</p>
 			</form>
 		</div>
-		<br> <br>
-		<div id="xy">一定要牢记帐号密码！因为我还没做忘记密码功能......</div>
 	</div>
 
 

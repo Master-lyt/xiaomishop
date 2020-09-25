@@ -104,6 +104,14 @@
 
 
 <style type="text/css">
+	body{
+		background-image: url(resources/image/register.jpg);
+		background-repeat: no-repeat;
+		background-size: 100% 110%;
+		background-color: #EDEDED;
+		font-family: 黑体;
+		position: relative;
+	}
 input:focus {border: 2px solid #FF7E00;}
 /* 顶部菜单导航栏 */
 #topbar {background-color: #3B3B3B;width: 1890px;height: 40px;}
@@ -124,7 +132,7 @@ input:focus {border: 2px solid #FF7E00;}
 </style>
 </head>
 
-<body id="body" style="background-image: url(resources/image/register.jpg);; background-color: #EDEDED;font-family: 黑体; background-repeat: no-repeat; height: 990px;">
+<body>
 	<!-- 顶部菜单导航栏 -->
 	<div id="header">
 		<div id="topbar">
