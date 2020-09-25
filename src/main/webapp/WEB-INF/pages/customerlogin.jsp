@@ -20,16 +20,8 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.js"></script>
 
-<script type="text/javascript">
-
-	//更换验证码
-	function changeYzm() {
-		document.getElementById("yzmImg").src = "randomcode?num=" + Math.random();
-	}
-
-</script>
 
 <style type="text/css">
 input:focus {
@@ -54,7 +46,7 @@ hr {
 	text-decoration: none;
 	color: #BDBDBD;
 	font-family: 黑体;
-	font-size: 14;
+	font-size: 14px;
 }
 
 #topbar a:hover {
@@ -96,7 +88,7 @@ hr {
 	text-decoration: none;
 	color: black;
 	font-family: 黑体;
-	font-size: 16;
+	font-size: 16px;
 }
 
 #menu_nav a:hover {
@@ -165,8 +157,8 @@ hr {
 }
 
 #login_form {
-	margin: 0px auto;
-	width: 300px;
+	margin: 0 auto;
+	width: 250px;
 	height: 300px;
 }
 
@@ -184,11 +176,17 @@ hr {
 	label{
 		margin-right: 10px;
 	}
+	body{
+		background-image: url(resources/image/login.jpg);
+		background-repeat: no-repeat;
+		background-size: 100% 110%;
+		background-color: #EDEDED;
+		font-family: 黑体;
+	}
 </style>
 </head>
 
-<body
-	style="background-image: url(resources/image/login.jpg); background-color: #EDEDED; font-family: 黑体;">
+<body>
 	<!-- 顶部菜单导航栏 -->
 	<div id="header">
 		<div id="topbar">
@@ -240,11 +238,12 @@ hr {
 				<label for="cpass">密码:</label><input type="password" id="cpass" name="cpass"
 					class="logininput" value="" onmouseover="this.style.borderColor='#FF7E00';"
 					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
-				<label for="yzm">验证码</label><img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
-					onclick="changeYzm()"> <br> <input type="text" id="yzm"
-					name="yzm" class="logininput" value=""
+				<img alt="" src="${pageContext.request.contextPath}/randomcode" id="yzmImg"
+					onclick="changeYzm()"> <br>
+				<label for="yzm">验证码</label>
+				<input type="text" id="yzm" name="yzm" class="logininput" value=""
 					onmouseover="this.style.borderColor='#FF7E00';"
-					onmouseout="this.style.borderColor='#EDEDED';" /> <br> <br>
+					onmouseout="this.style.borderColor='#EDEDED';"/> <br> <br>
 				<input type="submit" id="loginbtn" value="立即登录"
 					onmouseover="this.style.color='white';"
 					onmouseout="this.style.color='black';"> <br>
@@ -282,6 +281,13 @@ hr {
 	</div>
 
 
+	<script type="text/javascript">
 
+		//更换验证码
+		function changeYzm() {
+			document.getElementById("yzmImg").src = "randomcode?num=" + Math.random();
+		}
+
+	</script>
 </body>
 </html>
