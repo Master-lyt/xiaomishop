@@ -13,7 +13,7 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript">
 	function findcomment(page, pid) {
 		if (page == null || pid == null) {
@@ -107,29 +107,30 @@ hr {border: 1px solid #EDEDED;}
 </head>
 <script type="text/javascript">
 
-	$(function () {
-		alert("abc");
-		var customerid = $("#customerid").val();
-		var productid = $("#productid").val();
-		if(customerid != "" && customerid != null){
-			$.ajax({
-				type:"GET",
-				url:"${pageContext.request.contextPath}/getExistGoodsNumber",
-				data:{"customerid": customerid, "productid": productid},
-				dataType:"json",
-				success:function (data) {
-					$("#number").val(data.num);
-				}
-			});
-		}
-	});
+	<%--$(function () {--%>
+	<%--	alert("abc");--%>
+	<%--	var customerid = $("#customerid").val();--%>
+	<%--	var productid = $("#productid").val();--%>
+	<%--	if(customerid != "" && customerid != null){--%>
+	<%--		$.ajax({--%>
+	<%--			type:"GET",--%>
+	<%--			url:"${pageContext.request.contextPath}/getExistGoodsNumber",--%>
+	<%--			data:{"customerid": customerid, "productid": productid},--%>
+	<%--			dataType:"json",--%>
+	<%--			success:function (data) {--%>
+	<%--				$("#number").val(data.num);--%>
+	<%--			}--%>
+	<%--		});--%>
+	<%--	}--%>
+	<%--});--%>
 
 	//减少数量
 	function subtract(){
 		var obj = document.getElementById("number");
 		var number = obj.value;
 		if(number > 1){
-			obj.value = number - 1;
+			obj.value = parseInt(number) - 1;
+			$("#number").val(obj.value);
 			document.getElementById("totalprice").innerHTML = "${product.price}" * obj.value + "&nbsp;元";
 		}
 	}
@@ -138,6 +139,7 @@ hr {border: 1px solid #EDEDED;}
 		var obj = document.getElementById("number");
 		var number = obj.value;
 		obj.value = parseInt(number) + 1;
+		$("#number").val(obj.value);
 		document.getElementById("totalprice").innerHTML = "${product.price}" * obj.value + "&nbsp;元";
 	}
 	
@@ -148,8 +150,9 @@ hr {border: 1px solid #EDEDED;}
 			document.getElementById("addcar").setAttribute("href","${pageContext.request.contextPath}/tocustomerloginpage");
 		}else{
 			var obj = document.getElementById("number");//<input  id="number" value="1"/>
-			var numbers = obj.value;//获取输入的数量
-			if(numbers > "${product.number}"){
+			var numbers = parseInt(obj.value);//获取输入的数量
+			var kcNum = "${product.number}";
+			if(numbers > kcNum){
 				alert("购买的数量不能大于库存的数量");
 			}else{
 				document.getElementById("addcar").setAttribute("href","${pageContext.request.contextPath}/addcarshop?customerid=${customer.cid}&productid=${product.id}&numbers="+numbers)
@@ -249,7 +252,7 @@ hr {border: 1px solid #EDEDED;}
 			<br>
 			<br>
 			<br> <span style="font-size: 20px;">库存剩余</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="font-size: 24px; color: #FF7E00;">${product.number}&nbsp;件</span>
+			<span id="kcNum" style="font-size: 24px; color: #FF7E00;">${product.number}&nbsp;件</span>
 			<br>
 			<br>
 			<br> <span style="font-size: 20px;">商品单价</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

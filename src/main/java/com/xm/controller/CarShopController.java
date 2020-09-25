@@ -23,6 +23,7 @@ public class CarShopController {
 
     @GetMapping("/addcarshop")
     public String addCarshop(CarShop carShop) {
+        System.out.println("car:" + carShop);
         CarShop shop = carShopService.getCarShopByCustomerId(carShop);
         if(shop != null){
             carShopService.updateCarShopAdd(carShop);
