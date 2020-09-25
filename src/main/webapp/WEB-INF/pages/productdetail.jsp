@@ -137,6 +137,7 @@ hr {border: 1px solid #EDEDED;}
 	//增加数量
 	function add(){
 		var obj = document.getElementById("number");
+
 		var number = obj.value;
 		obj.value = parseInt(number) + 1;
 		$("#number").val(obj.value);

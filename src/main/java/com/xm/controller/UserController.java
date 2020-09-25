@@ -7,6 +7,7 @@ import com.xm.service.RoleService;
 import com.xm.service.UserService;
 import com.xm.untils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author lz
@@ -135,7 +134,6 @@ public class UserController {
                                                    @RequestParam(name = "roleid", defaultValue = "-1") int typeId,
                                                    @RequestParam(name = "page", defaultValue = "1") int page)  {
         int pagesize = 5;
-        System.out.println(name);
         PageBean<HashMap<String, Object>> users = usersService.getAllUsersByPage(name, typeId, page, pagesize);
         Map<String, Object> resultMap = new HashMap();
         resultMap.put("list", users.getList());

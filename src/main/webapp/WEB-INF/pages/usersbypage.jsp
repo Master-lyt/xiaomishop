@@ -124,7 +124,7 @@
                             '<td>' + user.rolename + '</td>' +
                             '<td><img width="55px" height="45px" ' + strimg + '</td>' +
                             '<td>' +
-                            '<button type="button" class="btn btn-info myupdate"' + 'onclick="umodify(' + user.uid + ')">修改</button>' +
+                            '<button type="button" class="btn btn-info myupdate"' + 'onclick="umodify(' + user.uid + ')">修改</button>&nbsp;&nbsp;' +
                             '<button type="button" class="btn btn-warning" id="mydel"' + 'onclick="udel(' + user.uid + ')">删除</button>' +
                             '</td>'
                         );
