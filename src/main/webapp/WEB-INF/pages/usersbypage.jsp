@@ -58,6 +58,11 @@
 		$("#checkAll").click(function(){
 			if($(this).prop("checked")){
 				$("input[type='checkbox']").not(this).prop("checked",true);
+				$("input[type='checkbox']").each(function(){
+					if ($(this).val() != "on") {
+						check($(this).val());
+					}
+				})
 			}else{
 				$("input[type='checkbox']").not(this).prop("checked",false);
 			}
